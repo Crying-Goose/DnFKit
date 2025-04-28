@@ -1,19 +1,13 @@
 //
-//  Character.swift
+//  CharacterDTO.swift
 //  DnFKit
 //
-//  Created by 라주영 on 3/18/25.
+//  Created by 라주영 on 4/28/25.
 //
 
 import Foundation
 
-// MARK: - Characters
-public struct Characters: Codable {
-    let rows: [Character]
-}
-
-// MARK: - Character
-public struct Character: Codable {
+public struct CharacterDTO {
     let serverId: String        // 서버명 ex) cain
     let characterId: String     // 캐릭터 고유 코드
     let characterName: String   // 캐릭터 이름
