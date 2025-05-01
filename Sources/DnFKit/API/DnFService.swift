@@ -13,8 +13,8 @@ public final class DnFService {
 
     public init() {}
 
-    public func fetchCharacter(name: String, completion: @escaping (Result<Character, Error>) -> Void) {
-        provider.request(.character(name: name)) { result in
+    public func fetchCharacters(name: String, completion: @escaping (Result<Character, Error>) -> Void) {
+        provider.request(.characters(name: name)) { result in
             switch result {
             case .success(let response):
                 do {
