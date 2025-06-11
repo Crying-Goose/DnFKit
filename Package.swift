@@ -18,13 +18,27 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/Moya/Moya.git", from: "15.0.3")
+        .package(url: "https://github.com/Moya/Moya.git", from: "15.0.3"),
+        .package(url: "https://github.com/devxoul/Then.git", from: "3.0.0"),
+        .package(url: "https://github.com/SnapKit/SnapKit.git", from: "5.7.1")
     ],
     targets: [
         .target(
             name: "DnFKit",
             dependencies: [
                 .product(name: "Moya", package: "Moya")
+            ]
+        ),
+        .target(
+            name: "Then",
+            dependencies: [
+                .product(name: "Then", package: "Then")
+            ]
+        ),
+        .target(
+            name: "SnapKit",
+            dependencies: [
+                .product(name: "SnapKit", package: "SnapKit")
             ]
         )
     ]
