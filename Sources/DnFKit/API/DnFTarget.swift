@@ -18,13 +18,12 @@ public enum DnFTarget {
     case avatar(server: String, characterId: String)
     case creature(server: String, characterId: String)
     case flag(server: String, characterId: String)
-    case talisman(server: String, characterId: String)
     case skill(server: String, characterId: String)
     case buff(server: String, characterId: String)
 }
 
 public enum DnFToken {
-    // 임시 내 토큰
+    // (임시사용) 내 토큰
     public static let key = "mVSUZGCKHA0wiolBYGyPhRWzG3MicPxS"
 }
 
@@ -60,8 +59,6 @@ extension DnFTarget: TargetType {
             return "df/servers/\(server)/characters/\(characterId)/equip/creature"
         case .flag(let server, let characterId):
             return "df/servers/\(server)/characters/\(characterId)/equip/flag"
-        case .talisman(let server, let characterId):
-            return "df/servers/\(server)/characters/\(characterId)/equip/talisman"
         case .skill(let server, let characterId):
             return "df/servers/\(server)/characters/\(characterId)/skill/style"
         case .buff(let server, let characterId):

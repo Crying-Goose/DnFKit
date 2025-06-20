@@ -19,6 +19,10 @@ public class CharacterViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func setup() {
+        //
+    }
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         
