@@ -1,2 +1,2 @@
 # DnFKit
- DnF Open API Data and UI Kit
+ DnF Open API Data Kit
