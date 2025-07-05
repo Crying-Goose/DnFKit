@@ -8,30 +8,30 @@
 import Foundation
 
 // MARK: - BuffEquipment
-struct BuffEquipments: Codable {
+struct BuffEquipmentsDTO: Codable {
     let serverId, characterId, characterName: String
     let level: Int
     let jobId, jobGrowId, jobName, jobGrowName: String
     let fame: Int
     let adventureName, guildId, guildName: String
-    let skill: BuffSkill
+    let skill: BuffSkillDTO
 }
 
 // MARK: - BuffSkill
-struct BuffSkill: Codable {
-    let buff: BuffStatistics
+struct BuffSkillDTO: Codable {
+    let buff: BuffStatisticsDTO
 }
 
 // MARK: - BuffStatistics
-struct BuffStatistics: Codable {
-    let skillInfo: SkillInfo
-    let equipment: [BuffEquipment]?
-    let avatar: [BuffAvatar]?
-    let creature: [BuffCreature]?
+struct BuffStatisticsDTO: Codable {
+    let skillInfo: SkillInfoDTO
+    let equipment: [BuffEquipmentDTO]?
+    let avatar: [BuffAvatarDTO]?
+    let creature: [BuffCreatureDTO]?
 }
 
 // MARK: - BuffEquipment
-struct BuffEquipment: Codable {
+struct BuffEquipmentDTO: Codable {
     let slotId, slotName, itemId, itemName: String
     let itemTypeId, itemType, itemTypeDetailId, itemTypeDetail: String
     let itemAvailableLevel: Int
@@ -43,44 +43,44 @@ struct BuffEquipment: Codable {
 }
 
 // MARK: - BuffAvatar
-struct BuffAvatar: Codable {
+struct BuffAvatarDTO: Codable {
     let slotId, slotName, itemId, itemName: String
     let itemRarity: String
-    let clone: Clone
+    let clone: CloneDTO
     let optionAbility: String
-    let emblems: [Emblem]
+    let emblems: [EmblemDTO]
 }
 
 // MARK: - BuffCreature
-struct BuffCreature: Codable {
+struct BuffCreatureDTO: Codable {
     let itemId, itemName, itemRarity: String
-    let enchant: BuffEnchant
+    let enchant: BuffEnchantDTO
 }
 
 // MARK: - Enchant
-struct BuffEnchant: Codable {
-    let reinforceSkill: [ReinforceSkill]
+struct BuffEnchantDTO: Codable {
+    let reinforceSkill: [ReinforceSkillDTO]
 }
 
 // MARK: - ReinforceSkill
-struct ReinforceSkill: Codable {
+struct ReinforceSkillDTO: Codable {
     let jobId, jobName: String
-    let skills: [SkillElement]
+    let skills: [SkillElementDTO]
 }
 
 // MARK: - SkillElement
-struct SkillElement: Codable {
+struct SkillElementDTO: Codable {
     let skillId, name, value: String
 }
 
 // MARK: - SkillInfo
-struct SkillInfo: Codable {
+struct SkillInfoDTO: Codable {
     let skillId, name: String
-    let option: BuffOption
+    let option: BuffOptionDTO
 }
 
 // MARK: - BuffOption
-struct BuffOption: Codable {
+struct BuffOptionDTO: Codable {
     let level: Int
     let desc: String
     let values: [String]

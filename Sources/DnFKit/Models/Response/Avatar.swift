@@ -8,31 +8,31 @@
 import Foundation
 
 // MARK: - Avatar
-struct AvatarResponse: Codable {
+struct AvatarResponseDTO: Codable {
     let serverId, characterId, characterName: String
     let level: Int
     let jobId, jobGrowId, jobName, jobGrowName: String
     let fame: Int
     let adventureName, guildId, guildName: String
-    let avatar: [AvatarElement]
+    let avatar: [AvatarElementDTO]
 }
 
 // MARK: - AvatarElement
-struct AvatarElement: Codable {
+struct AvatarElementDTO: Codable {
     let slotId, slotName, itemId, itemName: String
     let itemRarity: String
-    let clone: Clone
+    let clone: CloneDTO
     let optionAbility: String?
-    let emblems: [Emblem]
+    let emblems: [EmblemDTO]
 }
 
 // MARK: - Clone
-struct Clone: Codable {
+struct CloneDTO: Codable {
     let itemId, itemName: String?
 }
 
 // MARK: - Emblem
-struct Emblem: Codable {
+struct EmblemDTO: Codable {
     let slotNo: Int
     let slotColor, itemId, itemName: String
     let itemRarity: String

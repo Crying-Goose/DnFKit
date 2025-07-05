@@ -20,7 +20,7 @@ struct Creature: Codable {
 // MARK: - CreatureClass
 struct CreatureClass: Codable {
     let itemId, itemName, itemRarity: String
-    let clone: Clone
+    let clone: CloneDTO
     let artifact: [Artifact]
 }
 
