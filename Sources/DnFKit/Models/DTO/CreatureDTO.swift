@@ -1,5 +1,5 @@
 //
-//  Creature.swift
+//  CreatureDTO.swift
 //  DnFKit
 //
 //  Created by 라주영 on 4/22/25.
@@ -7,25 +7,25 @@
 
 import Foundation
 
-// MARK: - Creature
-struct Creature: Codable {
+// MARK: - CreatureDTO
+struct CreatureResponseDTO: Codable {
     let serverId, characterId, characterName: String
     let level: Int
     let jobId, jobGrowId, jobName, jobGrowName: String
     let fame: Int
     let adventureName, guildId, guildName: String
-    let creature: CreatureClass
+    let creature: CreatureClassDTO
 }
 
-// MARK: - CreatureClass
-struct CreatureClass: Codable {
+// MARK: - CreatureClassDTO
+struct CreatureClassDTO: Codable {
     let itemId, itemName, itemRarity: String
     let clone: CloneDTO
-    let artifact: [Artifact]
+    let artifact: [ArtifactDTO]
 }
 
-// MARK: - Artifact
-struct Artifact: Codable {
+// MARK: - ArtifactDTO
+struct ArtifactDTO: Codable {
     let slotColor, itemId, itemName: String
     let itemAvailableLevel: Int
     let itemRarity: String

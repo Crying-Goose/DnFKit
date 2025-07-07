@@ -5,33 +5,35 @@
 //  Created by 라주영 on 3/18/25.
 //
 
-struct CharacterTimeline: Codable {
+// MARK: - TimelineResponseDTO
+struct TimelineResponseDTO: Codable {
     let serverId: String        // 서버명 ex) cain
     let characterId: String     // 캐릭터 고유 코드
     let characterName: String   // 캐릭터 이름
-    let timeline: Timeline    // 캐릭터 타임라인
+    let timeline: TimelineDTO    // 캐릭터 타임라인
 }
 
-struct Timeline: Codable {
-    let date: DateClass
+// MARK: - TimelineDTO
+struct TimelineDTO: Codable {
+    let date: DateClassDTO
     let next: String
-    let rows: [TimelineRow]
+    let rows: [TimelineRowDTO]
 }
 
-// MARK: - DateClass
-struct DateClass: Codable {
+// MARK: - DateClassDTO
+struct DateClassDTO: Codable {
     let start, end: String
 }
 
-// MARK: - Row
-struct TimelineRow: Codable {
+// MARK: - TimelineRowDTO
+struct TimelineRowDTO: Codable {
     let code: Int
     let name, date: String
-    let data: DataClass
+    let data: DataClassDTO
 }
 
-// MARK: - DataClass
-struct DataClass: Codable {
+// MARK: - DataClassDTO
+struct DataClassDTO: Codable {
     let regionName, itemId, itemName, itemRarity: String?
     let channelName: String?
     let channelNo: Int?

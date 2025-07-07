@@ -7,26 +7,26 @@
 
 import Foundation
 
-// MARK: - Status
-struct Status: Codable {
+// MARK: - StatusResponseDTO
+struct StatusResponseDTO: Codable {
     let serverId, characterId, characterName: String
     let level: Int
     let jobId, jobGrowId, jobName, jobGrowName: String
     let fame: Int
     let adventureName, guildId, guildName: String
-    let buff: [Buff]
-    let status: [StatusElement]
+    let buff: [BuffDTO]
+    let status: [StatusElementDTO]
 }
 
-// MARK: - Buff
-struct Buff: Codable {
+// MARK: - BuffDTO
+struct BuffDTO: Codable {
     let name: String
     let level: Int?
-    let status: [StatusElement]
+    let status: [StatusElementDTO]
 }
 
-// MARK: - StatusElement
-struct StatusElement: Codable {
+// MARK: - StatusElementDTO
+struct StatusElementDTO: Codable {
     let name: String
     let value: Double
 }

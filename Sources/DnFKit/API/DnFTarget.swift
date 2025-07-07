@@ -42,9 +42,9 @@ extension DnFTarget: TargetType {
     public var path: String {
         switch self {
         case .characters(let name):
-            return "df/servers/all/characters?name=\(name)"
+            return "df/servers/all/characters?characterName=\(name)&isAllJobGrow=false&limit=200&wordType=full"
         case .character(let server,let name):
-            return "df/servers/\(server)/characters?name=\(name)"
+            return "df/servers/\(server)/characters?characterName=\(name)"
         case .characterInfo(let server, let characterId):
             return "df/servers/\(server)/characters/\(characterId)"
         case .timeline(let server, let characterId, let startDate, let endDate, let limit, let code, let next):

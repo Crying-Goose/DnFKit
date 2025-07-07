@@ -19,8 +19,13 @@ public final class DnFRepository: DnFRepositoryProtocol {
         self.apiService = apiService
     }
     
+    // 서버 전체 (전문) 캐릭터 검색
     public func fetchDnFCharacters(name: String) async throws -> [JustCharacter] {
         let response = try await apiService.getCharacters(name: name)
         return response.map { JustCharacter(dto: $0) }
+    }
+    
+    public func fetchDnFCharacterInfo(server: String, CharacterId: String) async throws -> CharacterInfo {
+        
     }
 }

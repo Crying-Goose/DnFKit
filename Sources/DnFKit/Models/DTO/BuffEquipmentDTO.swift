@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - BuffEquipment
-struct BuffEquipmentsDTO: Codable {
+struct BuffEquipmentResponseDTO: Codable {
     let serverId, characterId, characterName: String
     let level: Int
     let jobId, jobGrowId, jobName, jobGrowName: String

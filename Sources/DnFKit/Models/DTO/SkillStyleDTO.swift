@@ -7,29 +7,29 @@
 
 import Foundation
 
-// MARK: - SkillStyle
-struct SkillStyle: Codable {
+// MARK: - SkillStyleResponseDTO
+struct SkillStyleResponseDTO: Codable {
     let serverId, characterId, characterName: String
     let level: Int
     let jobId, jobGrowId, jobName, jobGrowName: String
     let fame: Int
     let adventureName, guildId, guildName: String
-    let skill: Skill
+    let skill: SkillDTO
 }
 
-// MARK: - Skill
-struct Skill: Codable {
+// MARK: - SkillDTO
+struct SkillDTO: Codable {
     let hash: String
-    let style: Style
+    let style: StyleDTO
 }
 
-// MARK: - Style
-struct Style: Codable {
-    let active, passive: [Ive]
+// MARK: - StyleDTO
+struct StyleDTO: Codable {
+    let active, passive: [IveDTO]
 }
 
-// MARK: - Ive
-struct Ive: Codable {
+// MARK: - IveDTO
+struct IveDTO: Codable {
     let skillId, name: String
     let level, requiredLevel: Int
     let costType: String

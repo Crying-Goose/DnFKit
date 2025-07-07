@@ -25,6 +25,11 @@ public struct JustCharacter: Codable {
     }
 }
 
+// MARK: - CharacterInfo
+public struct CharacterInfo: Codable {
+    
+}
+
 // MARK: - Character
 public struct Character: Codable {
     let serverId: String        // 서버명 ex) cain
