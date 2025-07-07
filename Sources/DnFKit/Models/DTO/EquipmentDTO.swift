@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - EquipmentResponseDTO
-struct EquipmentResponseDTO: Codable {
+public struct EquipmentResponseDTO: Codable {
     let serverId, characterId, characterName: String
     let level: Int
     let jobId, jobGrowId, jobName, jobGrowName: String
@@ -19,7 +19,7 @@ struct EquipmentResponseDTO: Codable {
 }
 
 // MARK: - EquipmentElementDTO
-struct EquipmentElementDTO: Codable {
+public struct EquipmentElementDTO: Codable {
     let slotId, slotName, itemId, itemName: String
     let itemTypeId, itemType, itemTypeDetailId, itemTypeDetail: String
     let itemAvailableLevel: Int
@@ -37,12 +37,12 @@ struct EquipmentElementDTO: Codable {
 }
 
 // MARK: - EnchantDTO
-struct EnchantDTO: Codable {
+public struct EnchantDTO: Codable {
     let status: [EnchantStatusDTO]
 }
 
 // MARK: - EnchantStatusDTO
-struct EnchantStatusDTO: Codable {
+public struct EnchantStatusDTO: Codable {
     let name: String
     let value: Value
 }
@@ -76,12 +76,12 @@ enum Value: Codable {
 }
 
 // MARK: - FusionOptionDTO
-struct FusionOptionDTO: Codable {
+public struct FusionOptionDTO: Codable {
     let options: [OptionDTO]
 }
 
 // MARK: - OptionDTO
-struct OptionDTO: Codable {
+public struct OptionDTO: Codable {
     let buff: Int?
     let explain, explainDetail: String
     let buffExplain, buffExplainDetail: String?
@@ -89,13 +89,13 @@ struct OptionDTO: Codable {
 }
 
 // MARK: - EngraveDTO
-struct EngraveDTO: Codable {
+public struct EngraveDTO: Codable {
     let color: String
     let value: Int
 }
 
 // MARK: - TuneDTO
-struct TuneDTO: Codable {
+public struct TuneDTO: Codable {
     let level: Int
     let status: [TuneStatusDTO]?
     let setPoint: Int?
@@ -103,12 +103,12 @@ struct TuneDTO: Codable {
 }
 
 // MARK: - TuneStatusDTO
-struct TuneStatusDTO: Codable {
+public struct TuneStatusDTO: Codable {
     let name, value: String
 }
 
 // MARK: - UpgradeInfoDTO
-struct UpgradeInfoDTO: Codable {
+public struct UpgradeInfoDTO: Codable {
     let itemId, itemName: String
     let itemRarity: String
     let setItemId: String
@@ -117,7 +117,7 @@ struct UpgradeInfoDTO: Codable {
 }
 
 // MARK: - SetItemInfoDTO
-struct SetItemInfoDTO: Codable {
+public struct SetItemInfoDTO: Codable {
     let setItemId: String
     let setItemName, setItemRarityName: String
     let active: ActiveDTO
@@ -125,19 +125,19 @@ struct SetItemInfoDTO: Codable {
 }
 
 // MARK: - ActiveDTO
-struct Active: Codable {
+public struct ActiveDTO: Codable {
     let explain, explainDetail: String
     let status: [EnchantStatusDTO]
     let setPoint: SetPointDTO
 }
 
 // MARK: - SetPointDTO
-struct SetPointDTO: Codable {
+public struct SetPointDTO: Codable {
     let current, min, max: Int
 }
 
 // MARK: - SlotInfoDTO
-struct SlotInfoDTO: Codable {
+public struct SlotInfoDTO: Codable {
     let itemNo, slotId, slotName: String
     let itemRarity: String
     let fusionStone: Bool?

@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - CreatureDTO
-struct CreatureResponseDTO: Codable {
+public struct CreatureResponseDTO: Codable {
     let serverId, characterId, characterName: String
     let level: Int
     let jobId, jobGrowId, jobName, jobGrowName: String
@@ -18,14 +18,14 @@ struct CreatureResponseDTO: Codable {
 }
 
 // MARK: - CreatureClassDTO
-struct CreatureClassDTO: Codable {
+public struct CreatureClassDTO: Codable {
     let itemId, itemName, itemRarity: String
     let clone: CloneDTO
     let artifact: [ArtifactDTO]
 }
 
 // MARK: - ArtifactDTO
-struct ArtifactDTO: Codable {
+public struct ArtifactDTO: Codable {
     let slotColor, itemId, itemName: String
     let itemAvailableLevel: Int
     let itemRarity: String

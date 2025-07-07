@@ -25,7 +25,12 @@ public final class DnFRepository: DnFRepositoryProtocol {
         return response.map { JustCharacter(dto: $0) }
     }
     
-    public func fetchDnFCharacterInfo(server: String, CharacterId: String) async throws -> CharacterInfo {
-        
+    public func fetchDnFCharacterInfo(server: String, id: String) async throws -> CharacterInfo {
+        let baseInfo = try await apiService.getCharacterInfo(server: server, id: id)
+        let status = try await apiService.getStatus(server: server, id: id)
+        let equipment = try await apiService.getEquipment(server: server, id: id)
+        let avatar = try await apiService.getAvatar(server: server, id: id)
+        let creature = try await apiService.getCreature(server: server, id: id)
+        return CharacterInfo()
     }
 }

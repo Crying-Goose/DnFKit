@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - StatusResponseDTO
-struct StatusResponseDTO: Codable {
+public struct StatusResponseDTO: Codable {
     let serverId, characterId, characterName: String
     let level: Int
     let jobId, jobGrowId, jobName, jobGrowName: String
@@ -19,14 +19,14 @@ struct StatusResponseDTO: Codable {
 }
 
 // MARK: - BuffDTO
-struct BuffDTO: Codable {
+public struct BuffDTO: Codable {
     let name: String
     let level: Int?
     let status: [StatusElementDTO]
 }
 
 // MARK: - StatusElementDTO
-struct StatusElementDTO: Codable {
+public struct StatusElementDTO: Codable {
     let name: String
     let value: Double
 }
