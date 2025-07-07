@@ -16,7 +16,7 @@ public struct JustCharacter: Sendable {
     public let name: String
     public let jobGrowName: String
     
-    init(dto: CharacterResponseDTO) {
+    init(dto: CharacterDTO) {
         self.server = dto.serverId
         self.characterId = dto.characterId
         self.level = dto.level

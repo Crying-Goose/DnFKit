@@ -8,80 +8,80 @@
 import Foundation
 
 // MARK: - BuffEquipment
-struct BuffEquipmentResponseDTO: Codable {
-    let serverId, characterId, characterName: String
-    let level: Int
-    let jobId, jobGrowId, jobName, jobGrowName: String
-    let fame: Int
-    let adventureName, guildId, guildName: String
-    let skill: BuffSkillDTO
+public struct BuffEquipmentResponseDTO: Codable {
+    public let serverId, characterId, characterName: String
+    public let level: Int
+    public let jobId, jobGrowId, jobName, jobGrowName: String
+    public let fame: Int
+    public let adventureName, guildId, guildName: String
+    public let skill: BuffSkillDTO
 }
 
 // MARK: - BuffSkill
-struct BuffSkillDTO: Codable {
-    let buff: BuffStatisticsDTO
+public struct BuffSkillDTO: Codable {
+    public let buff: BuffStatisticsDTO
 }
 
 // MARK: - BuffStatistics
-struct BuffStatisticsDTO: Codable {
-    let skillInfo: SkillInfoDTO
-    let equipment: [BuffEquipmentDTO]?
-    let avatar: [BuffAvatarDTO]?
-    let creature: [BuffCreatureDTO]?
+public struct BuffStatisticsDTO: Codable {
+    public let skillInfo: SkillInfoDTO
+    public let equipment: [BuffEquipmentDTO]?
+    public let avatar: [BuffAvatarDTO]?
+    public let creature: [BuffCreatureDTO]?
 }
 
 // MARK: - BuffEquipment
-struct BuffEquipmentDTO: Codable {
-    let slotId, slotName, itemId, itemName: String
-    let itemTypeId, itemType, itemTypeDetailId, itemTypeDetail: String
-    let itemAvailableLevel: Int
-    let itemRarity: String
-    let setItemId, setItemName: String?
-    let reinforce: Int
-    let amplificationName: String?
-    let refine: Int
+public struct BuffEquipmentDTO: Codable {
+    public let slotId, slotName, itemId, itemName: String
+    public let itemTypeId, itemType, itemTypeDetailId, itemTypeDetail: String
+    public let itemAvailableLevel: Int
+    public let itemRarity: String
+    public let setItemId, setItemName: String?
+    public let reinforce: Int
+    public let amplificationName: String?
+    public let refine: Int
 }
 
 // MARK: - BuffAvatar
-struct BuffAvatarDTO: Codable {
-    let slotId, slotName, itemId, itemName: String
-    let itemRarity: String
-    let clone: CloneDTO
-    let optionAbility: String
-    let emblems: [EmblemDTO]
+public struct BuffAvatarDTO: Codable {
+    public let slotId, slotName, itemId, itemName: String
+    public let itemRarity: String
+    public let clone: CloneDTO
+    public let optionAbility: String
+    public let emblems: [EmblemDTO]
 }
 
 // MARK: - BuffCreature
-struct BuffCreatureDTO: Codable {
-    let itemId, itemName, itemRarity: String
-    let enchant: BuffEnchantDTO
+public struct BuffCreatureDTO: Codable {
+    public let itemId, itemName, itemRarity: String
+    public let enchant: BuffEnchantDTO
 }
 
 // MARK: - Enchant
-struct BuffEnchantDTO: Codable {
-    let reinforceSkill: [ReinforceSkillDTO]
+public struct BuffEnchantDTO: Codable {
+    public let reinforceSkill: [ReinforceSkillDTO]
 }
 
 // MARK: - ReinforceSkill
-struct ReinforceSkillDTO: Codable {
-    let jobId, jobName: String
-    let skills: [SkillElementDTO]
+public struct ReinforceSkillDTO: Codable {
+    public let jobId, jobName: String
+    public let skills: [SkillElementDTO]
 }
 
 // MARK: - SkillElement
-struct SkillElementDTO: Codable {
-    let skillId, name, value: String
+public struct SkillElementDTO: Codable {
+    public let skillId, name, value: String
 }
 
 // MARK: - SkillInfo
-struct SkillInfoDTO: Codable {
-    let skillId, name: String
-    let option: BuffOptionDTO
+public struct SkillInfoDTO: Codable {
+    public let skillId, name: String
+    public let option: BuffOptionDTO
 }
 
 // MARK: - BuffOption
-struct BuffOptionDTO: Codable {
-    let level: Int
-    let desc: String
-    let values: [String]
+public struct BuffOptionDTO: Codable {
+    public let level: Int
+    public let desc: String
+    public let values: [String]
 }

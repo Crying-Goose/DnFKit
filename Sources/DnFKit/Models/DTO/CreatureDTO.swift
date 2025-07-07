@@ -9,24 +9,24 @@ import Foundation
 
 // MARK: - CreatureDTO
 public struct CreatureResponseDTO: Codable {
-    let serverId, characterId, characterName: String
-    let level: Int
-    let jobId, jobGrowId, jobName, jobGrowName: String
-    let fame: Int
-    let adventureName, guildId, guildName: String
-    let creature: CreatureClassDTO
+    public let serverId, characterId, characterName: String
+    public let level: Int
+    public let jobId, jobGrowId, jobName, jobGrowName: String
+    public let fame: Int
+    public let adventureName, guildId, guildName: String
+    public let creature: CreatureClassDTO
 }
 
 // MARK: - CreatureClassDTO
 public struct CreatureClassDTO: Codable {
-    let itemId, itemName, itemRarity: String
-    let clone: CloneDTO
-    let artifact: [ArtifactDTO]
+    public let itemId, itemName, itemRarity: String
+    public let clone: CloneDTO
+    public let artifact: [ArtifactDTO]
 }
 
 // MARK: - ArtifactDTO
 public struct ArtifactDTO: Codable {
-    let slotColor, itemId, itemName: String
-    let itemAvailableLevel: Int
-    let itemRarity: String
+    public let slotColor, itemId, itemName: String
+    public let itemAvailableLevel: Int
+    public let itemRarity: String
 }

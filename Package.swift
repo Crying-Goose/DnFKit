@@ -26,6 +26,7 @@ let package = Package(
             dependencies: [
                 .product(name: "Moya", package: "Moya")
             ]
-        )
+        ),
+        .testTarget(name: "DnFKitTests", dependencies: ["DnFKit"])
     ]
 )

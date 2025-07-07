@@ -8,7 +8,11 @@
 import Foundation
 
 public struct CharacterResponseDTO: Codable {
-    public let characterId: String          
+    public let rows: [CharacterDTO]
+}
+
+public struct CharacterDTO: Codable {
+    public let characterId: String
     public let characterName: String
     public let level: Int
     public let jobId: String

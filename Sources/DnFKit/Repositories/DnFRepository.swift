@@ -22,15 +22,15 @@ public final class DnFRepository: DnFRepositoryProtocol {
     // 서버 전체 (전문) 캐릭터 검색
     public func fetchDnFCharacters(name: String) async throws -> [JustCharacter] {
         let response = try await apiService.getCharacters(name: name)
-        return response.map { JustCharacter(dto: $0) }
+        return response.rows.map { JustCharacter(dto: $0) }
     }
     
-    public func fetchDnFCharacterInfo(server: String, id: String) async throws -> CharacterInfo {
-        let baseInfo = try await apiService.getCharacterInfo(server: server, id: id)
-        let status = try await apiService.getStatus(server: server, id: id)
-        let equipment = try await apiService.getEquipment(server: server, id: id)
-        let avatar = try await apiService.getAvatar(server: server, id: id)
-        let creature = try await apiService.getCreature(server: server, id: id)
-        return CharacterInfo()
-    }
+//    public func fetchDnFCharacterInfo(server: String, id: String) async throws -> CharacterInfo {
+//        let baseInfo = try await apiService.getCharacterInfo(server: server, id: id)
+//        let status = try await apiService.getStatus(server: server, id: id)
+//        let equipment = try await apiService.getEquipment(server: server, id: id)
+//        let avatar = try await apiService.getAvatar(server: server, id: id)
+//        let creature = try await apiService.getCreature(server: server, id: id)
+//        return CharacterInfo()
+//    }
 }

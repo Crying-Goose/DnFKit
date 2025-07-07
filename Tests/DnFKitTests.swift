@@ -32,5 +32,17 @@ final class DnFKitTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+    
+    func testGetCharacterInfo() async throws {
+        // ✅ 준비
+        let apiService = DnFService()
+        let name = "라주팔"
 
+        // ✅ 실행
+        let result = try await apiService.getCharacters(name: name)
+
+        // ✅ 검증
+        XCTAssertNoThrow(result)
+        XCTAssertNotNil(result, "검색 결과가 없음")
+    }
 }
