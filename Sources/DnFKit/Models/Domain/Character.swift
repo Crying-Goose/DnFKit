@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - JustCharacter
 // Character simple information
-public struct JustCharacter: Codable {
+public struct JustCharacter {
     let server: String
     let characterId: String
     let level: Int
@@ -26,12 +26,12 @@ public struct JustCharacter: Codable {
 }
 
 // MARK: - CharacterInfo
-public struct CharacterInfo: Codable {
+public struct CharacterInfo {
     
 }
 
 // MARK: - Character
-public struct Character: Codable {
+public struct Character {
     let serverId: String        // 서버명 ex) cain
     let characterId: String     // 캐릭터 고유 코드
     let characterName: String   // 캐릭터 이름
