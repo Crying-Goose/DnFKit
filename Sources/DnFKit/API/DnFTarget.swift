@@ -72,7 +72,7 @@ extension DnFTarget: TargetType {
     public var task: Task {
         switch self {
         case .characters(let name):
-            return .requestParameters(parameters: ["characterName": name, "limit": 200, "wordType": "full", "apikey": DnFToken.key], encoding: URLEncoding.default)
+            return .requestParameters(parameters: ["characterName": name, "limit": 30, "wordType": "full", "apikey": DnFToken.key], encoding: URLEncoding.default)
         case .character(let server, let name):
             return .requestParameters(parameters: ["characterName": name, "apikey": DnFToken.key], encoding: URLEncoding.default)
         case .timeline(let server, let characterId, let startDate, let endDate, let limit, let code, let next):
