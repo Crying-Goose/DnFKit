@@ -15,6 +15,7 @@ public struct JustCharacter: Sendable {
     public let level: Int
     public let name: String
     public let jobGrowName: String
+    public let fame: Int
     
     init(dto: CharacterDTO) {
         self.server = dto.serverId
@@ -22,6 +23,7 @@ public struct JustCharacter: Sendable {
         self.level = dto.level
         self.name = dto.characterName
         self.jobGrowName = dto.jobGrowName
+        self.fame = dto.fame
     }
 }
 
