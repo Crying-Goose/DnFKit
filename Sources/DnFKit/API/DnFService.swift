@@ -10,7 +10,8 @@ import Moya
 
 public protocol DnFAPIServiceProtocol {
     func getCharacters(name: String) async throws -> CharacterResponseDTO
-    func getCharacterInfo(server: String, id: String) async throws -> CharacterResponseDTO
+    func getCharacter(server: String, name: String) async throws -> CharacterResponseDTO
+    func getCharacterInfo(server: String, id: String) async throws -> CharacterDTO
     func getStatus(server: String, id: String) async throws -> StatusResponseDTO
     func getEquipment(server: String, id: String) async throws -> EquipmentResponseDTO
     func getAvatar(server: String, id: String) async throws -> AvatarResponseDTO
@@ -50,16 +51,37 @@ public final class DnFService: DnFAPIServiceProtocol {
             }
         }
     }
-
+    
+    // 캐릭터 검색(서버)
+    public func getCharacter(server: String, name: String) async throws -> CharacterResponseDTO {
+        return try await withCheckedThrowingContinuation { continuation in
+            provider.request(.character(server: server, name: name)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let decoder = JSONDecoder()
+                        let dto = try decoder.decode(CharacterResponseDTO.self, from: response.data)
+                        continuation.resume(returning: dto)
+                    } catch {
+                        print("❌ JSON Decoding Failed:", error)
+                        print(String(data: response.data, encoding: .utf8) ?? "No Response")
+                        continuation.resume(throwing: error)
+                    }
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
 
     // 캐릭터 기본 정보 조회
-    public func getCharacterInfo(server: String, id: String) async throws -> CharacterResponseDTO {
+    public func getCharacterInfo(server: String, id: String) async throws -> CharacterDTO {
         return try await withCheckedThrowingContinuation { continuation in
             provider.request(.characterInfo(server: server, characterId: id)) { result in
                 switch result {
                 case .success(let response):
                     do {
-                        let dto = try JSONDecoder().decode(CharacterResponseDTO.self, from: response.data)
+                        let dto = try JSONDecoder().decode(CharacterDTO.self, from: response.data)
                         continuation.resume(returning: dto)
                     } catch {
                         continuation.resume(throwing: error)

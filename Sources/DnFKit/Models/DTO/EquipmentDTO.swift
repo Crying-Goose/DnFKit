@@ -91,12 +91,12 @@ public struct OptionDTO: Codable {
 // MARK: - EngraveDTO
 public struct EngraveDTO: Codable {
     let color: String
-    let value: Int
+    let value: Value
 }
 
 // MARK: - TuneDTO
 public struct TuneDTO: Codable {
-    let level: Int
+    let level: Int?
     let status: [TuneStatusDTO]?
     let setPoint: Int?
     let upgrade: Bool?
@@ -104,14 +104,15 @@ public struct TuneDTO: Codable {
 
 // MARK: - TuneStatusDTO
 public struct TuneStatusDTO: Codable {
-    let name, value: String
+    let name: String
+    let value: Value
 }
 
 // MARK: - UpgradeInfoDTO
 public struct UpgradeInfoDTO: Codable {
     let itemId, itemName: String
     let itemRarity: String
-    let setItemId: String
+    let setItemId: String?
     let setItemName: String?
     let setPoint: Int?
 }
