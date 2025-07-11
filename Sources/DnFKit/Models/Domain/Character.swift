@@ -23,7 +23,7 @@ public struct JustCharacter: Sendable {
         self.level = dto.level
         self.name = dto.characterName
         self.jobGrowName = dto.jobGrowName
-        self.fame = dto.fame
+        self.fame = dto.fame ?? 0
     }
 }
 
@@ -51,7 +51,7 @@ public struct Character: Sendable {
         self.jobGrowId = dto.jobGrowId
         self.jobName = dto.jobName
         self.jobGrowName = dto.jobGrowName
-        self.fame = dto.fame
+        self.fame = dto.fame ?? 0
         self.adventureName = dto.adventureName ?? ""
         self.guildId = dto.guildId ?? ""
         self.guildName = dto.guildName ?? ""

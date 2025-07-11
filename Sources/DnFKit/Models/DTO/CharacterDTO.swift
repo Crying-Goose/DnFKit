@@ -23,5 +23,5 @@ public struct CharacterDTO: Codable {
     public let guildId: String?
     public let guildName: String?
     public let serverId: String
-    public let fame: Int
+    public let fame: Int?
 }
