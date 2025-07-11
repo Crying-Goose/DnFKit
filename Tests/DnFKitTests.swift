@@ -101,4 +101,21 @@ final class DnFKitTests: XCTestCase {
         XCTAssertNoThrow(result)
         XCTAssertNotNil(result, "검색 결과가 없음")
     }
+    
+    func testFetchInfo() async throws {
+        // ✅ 준비
+        let repository = DnFRepository()
+        let id = "96b4b30b29b96bdaa835ba3def65efc2"
+        let server = "cain"
+        
+        // ✅ 실행
+        let result = try await repository.fetchDnFCharacterInfo(server: server, id: id)
+        
+        // ✅ 출력
+        print(result)
+        
+        // ✅ 검증
+        XCTAssertNoThrow(result)
+        XCTAssertNotNil(result, "검색 결과가 없음")
+    }
 }

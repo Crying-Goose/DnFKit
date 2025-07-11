@@ -38,9 +38,16 @@ public final class DnFRepository: DnFRepositoryProtocol {
         let equipment = try await apiService.getEquipment(server: server, id: id)
         let avatar = try await apiService.getAvatar(server: server, id: id)
         let creature = try await apiService.getCreature(server: server, id: id)
+        let flag = try await apiService.getFlag(server: server, id: id)
+        let skill = try await apiService.getSkills(server: server, id: id)
         return CharacterInfo(
-            baseInfo: Character.init(dto: baseInfo),
-            status: Status.init(dto: status)
+            baseInfo: .init(dto: baseInfo),
+            status: .init(dto: status),
+            equipment: equipment.equipment.map { .init(dto: $0) },
+            avatar: avatar.avatar.map { .init(dto: $0) },
+            creature: .init(dto: creature.creature),
+            flag: .init(dto: flag.flag),
+            skill: .init(dto: skill.skill)
         )
     }
 }

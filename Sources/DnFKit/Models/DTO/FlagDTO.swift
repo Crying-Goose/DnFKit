@@ -8,10 +8,10 @@
 import Foundation
 
 // MARK: - FlagResponseDTO
-struct FlagResponseDTO: Codable {
+public struct FlagResponseDTO: Codable {
     let serverId, characterId, characterName: String
     let level: Int
-    let jobID, jobGrowId, jobName, jobGrowName: String
+    let jobId, jobGrowId, jobName, jobGrowName: String
     let fame: Int
     let adventureName, guildId, guildName: String
     let flag: FlagClassDTO
@@ -21,7 +21,7 @@ struct FlagResponseDTO: Codable {
 struct FlagClassDTO: Codable {
     let itemId, itemName, itemRarity: String
     let reinforce: Int
-    let reinforceStatus: [ReinforceStatusDTO]
+    let reinforceStatus: [StatusElementDTO]
     let gems: [GemDTO]
 }
 
@@ -29,10 +29,4 @@ struct FlagClassDTO: Codable {
 struct GemDTO: Codable {
     let slotNo: Int
     let itemId, itemName, itemRarity: String
-}
-
-// MARK: - ReinforceStatusDTO
-struct ReinforceStatusDTO: Codable {
-    let name: String
-    let value: Double
 }

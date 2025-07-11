@@ -38,9 +38,9 @@ public struct Character: Sendable {
     public let jobName: String
     public let jobGrowName: String
     public let fame: Int
-    public let adventureName: String?
-    public let guildId: String?
-    public let guildName: String?
+    public let adventureName: String
+    public let guildId: String
+    public let guildName: String
     
     init(dto: CharacterDTO) {
         self.server = dto.serverId
@@ -52,9 +52,9 @@ public struct Character: Sendable {
         self.jobName = dto.jobName
         self.jobGrowName = dto.jobGrowName
         self.fame = dto.fame
-        self.adventureName = dto.adventureName
-        self.guildId = dto.guildId
-        self.guildName = dto.guildName
+        self.adventureName = dto.adventureName ?? ""
+        self.guildId = dto.guildId ?? ""
+        self.guildName = dto.guildName ?? ""
     }
 }
 
@@ -62,8 +62,9 @@ public struct Character: Sendable {
 public struct CharacterInfo: Sendable {
     public let baseInfo: Character
     public let status: Status
-    // TODO: Domain Model 추가 필요
-//    public let equipment:
-//    public let avatar:
-//    public let creature:
+    public let equipment: [Equipment]
+    public let avatar: [Avatar]
+    public let creature: Creature
+    public let flag: Flag
+    public let skill: SkillStyle
 }

@@ -14,26 +14,20 @@ public struct Status: Sendable {
     
     init(dto: StatusResponseDTO) {
         self.id = dto.characterId
-        var buffs: [CommonBuff] = []
-        dto.buff.forEach { buffs.append(.init(dto: $0)) }
-        self.buffs = buffs
-        var status: [StatusInfo] = []
-        dto.status.forEach { status.append(.init(dto: $0)) }
-        self.status = status
+        self.buffs = dto.buff.map { .init(dto: $0) }
+        self.status = dto.status.map { .init(dto: $0) }
     }
 }
 
 public struct CommonBuff: Sendable {
     public let name: String
-    public let level: Int?
+    public let level: Int
     public let status: [StatusInfo]
     
     init(dto: BuffDTO) {
         self.name = dto.name
-        self.level = dto.level
-        var status: [StatusInfo] = []
-        dto.status.forEach { status.append(.init(dto: $0)) }
-        self.status = status
+        self.level = dto.level ?? 0
+        self.status = dto.status.map { .init(dto: $0) }
     }
 }
 
@@ -43,6 +37,6 @@ public struct StatusInfo: Sendable {
     
     init(dto: StatusElementDTO) {
         self.name = dto.name
-        self.value = dto.value
+        self.value = dto.value.doubleValue
     }
 }

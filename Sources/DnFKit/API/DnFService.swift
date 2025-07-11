@@ -16,6 +16,8 @@ public protocol DnFAPIServiceProtocol {
     func getEquipment(server: String, id: String) async throws -> EquipmentResponseDTO
     func getAvatar(server: String, id: String) async throws -> AvatarResponseDTO
     func getCreature(server: String, id: String) async throws -> CreatureResponseDTO
+    func getFlag(server: String, id: String) async throws -> FlagResponseDTO
+    func getSkills(server: String, id: String) async throws -> SkillStyleResponseDTO
 }
 
 struct CustomURLLoggerPlugin: PluginType {
@@ -158,6 +160,44 @@ public final class DnFService: DnFAPIServiceProtocol {
                 case .success(let response):
                     do {
                         let dto = try JSONDecoder().decode(CreatureResponseDTO.self, from: response.data)
+                        continuation.resume(returning: dto)
+                    } catch {
+                        continuation.resume(throwing: error)
+                    }
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+    
+    // 캐릭터(모험단) 휘장 정보 조회
+    public func getFlag(server: String, id: String) async throws -> FlagResponseDTO {
+        return try await withCheckedThrowingContinuation { continuation in
+            provider.request(.flag(server: server, characterId: id)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let dto = try JSONDecoder().decode(FlagResponseDTO.self, from: response.data)
+                        continuation.resume(returning: dto)
+                    } catch {
+                        continuation.resume(throwing: error)
+                    }
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+    
+    // 캐릭터 스킬 정보 조회
+    public func getSkills(server: String, id: String) async throws -> SkillStyleResponseDTO {
+        return try await withCheckedThrowingContinuation { continuation in
+            provider.request(.skill(server: server, characterId: id)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let dto = try JSONDecoder().decode(SkillStyleResponseDTO.self, from: response.data)
                         continuation.resume(returning: dto)
                     } catch {
                         continuation.resume(throwing: error)

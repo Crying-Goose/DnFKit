@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - SkillStyleResponseDTO
-struct SkillStyleResponseDTO: Codable {
+public struct SkillStyleResponseDTO: Codable {
     let serverId, characterId, characterName: String
     let level: Int
     let jobId, jobGrowId, jobName, jobGrowName: String
@@ -26,11 +26,17 @@ struct SkillDTO: Codable {
 // MARK: - StyleDTO
 struct StyleDTO: Codable {
     let active, passive: [IveDTO]
+    let evolution, enhancement: [SkillStageDTO]
 }
 
 // MARK: - IveDTO
 struct IveDTO: Codable {
     let skillId, name: String
     let level, requiredLevel: Int
-    let costType: String
+}
+
+// MARK: - SkillStageDTO
+struct SkillStageDTO: Codable {
+    let skillId: String
+    let type: Int
 }

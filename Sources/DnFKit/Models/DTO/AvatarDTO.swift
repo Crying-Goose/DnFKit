@@ -23,7 +23,7 @@ public struct AvatarElementDTO: Codable {
     let itemRarity: String
     let clone: CloneDTO
     let optionAbility: String?
-    let emblems: [EmblemDTO]
+    let emblems: [EmblemDTO]?
 }
 
 // MARK: - Clone

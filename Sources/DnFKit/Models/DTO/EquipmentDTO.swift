@@ -38,41 +38,7 @@ public struct EquipmentElementDTO: Codable {
 
 // MARK: - EnchantDTO
 public struct EnchantDTO: Codable {
-    let status: [EnchantStatusDTO]
-}
-
-// MARK: - EnchantStatusDTO
-public struct EnchantStatusDTO: Codable {
-    let name: String
-    let value: Value
-}
-
-enum Value: Codable {
-    case integer(Int)
-    case string(String)
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        if let x = try? container.decode(Int.self) {
-            self = .integer(x)
-            return
-        }
-        if let x = try? container.decode(String.self) {
-            self = .string(x)
-            return
-        }
-        throw DecodingError.typeMismatch(Value.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for Value"))
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        switch self {
-        case .integer(let x):
-            try container.encode(x)
-        case .string(let x):
-            try container.encode(x)
-        }
-    }
+    let status: [StatusElementDTO]
 }
 
 // MARK: - FusionOptionDTO
@@ -97,15 +63,9 @@ public struct EngraveDTO: Codable {
 // MARK: - TuneDTO
 public struct TuneDTO: Codable {
     let level: Int?
-    let status: [TuneStatusDTO]?
+    let status: [StatusElementDTO]?
     let setPoint: Int?
     let upgrade: Bool?
-}
-
-// MARK: - TuneStatusDTO
-public struct TuneStatusDTO: Codable {
-    let name: String
-    let value: Value
 }
 
 // MARK: - UpgradeInfoDTO
@@ -128,7 +88,7 @@ public struct SetItemInfoDTO: Codable {
 // MARK: - ActiveDTO
 public struct ActiveDTO: Codable {
     let explain, explainDetail: String
-    let status: [EnchantStatusDTO]
+    let status: [StatusElementDTO]
     let setPoint: SetPointDTO
 }
 
