@@ -18,6 +18,7 @@ public protocol DnFAPIServiceProtocol {
     func getCreature(server: String, id: String) async throws -> CreatureResponseDTO
     func getFlag(server: String, id: String) async throws -> FlagResponseDTO
     func getSkills(server: String, id: String) async throws -> SkillStyleResponseDTO
+    func getTimeline(server: String, id: String, code: [Int], date: Date, next: String?) async throws -> TimelineResponseDTO
 }
 
 struct CustomURLLoggerPlugin: PluginType {
@@ -198,6 +199,28 @@ public final class DnFService: DnFAPIServiceProtocol {
                 case .success(let response):
                     do {
                         let dto = try JSONDecoder().decode(SkillStyleResponseDTO.self, from: response.data)
+                        continuation.resume(returning: dto)
+                    } catch {
+                        continuation.resume(throwing: error)
+                    }
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+    
+    // 캐릭터 타임라인 조회
+    public func getTimeline(server: String, id: String, code: [Int], date: Date, next: String?) async throws -> TimelineResponseDTO {
+        return try await withCheckedThrowingContinuation { continuation in
+            let calendar = Calendar.current
+            let startDate = calendar.date(byAdding: .month, value: -1, to: date)
+            let codeString = code.map { String($0) }.joined(separator: ",")
+            provider.request(.timeline(server: server, characterId: id, startDate: startDate ?? date, endDate: date, code: codeString, next: next)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let dto = try JSONDecoder().decode(TimelineResponseDTO.self, from: response.data)
                         continuation.resume(returning: dto)
                     } catch {
                         continuation.resume(throwing: error)

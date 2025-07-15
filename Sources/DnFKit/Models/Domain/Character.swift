@@ -67,4 +67,14 @@ public struct CharacterInfo: Sendable {
     public let creature: Creature
     public let flag: Flag
     public let skill: SkillStyle
+    
+    init(baseInfo: Character, status: Status, equipment: [Equipment], avatar: [Avatar], creature: Creature, flag: Flag, skill: SkillStyle) {
+        self.baseInfo = baseInfo
+        self.status = status
+        self.equipment = equipment
+        self.avatar = avatar
+        self.creature = creature
+        self.flag = flag
+        self.skill = skill
+    }
 }

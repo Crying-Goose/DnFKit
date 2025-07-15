@@ -10,6 +10,8 @@ import Foundation
 public protocol DnFRepositoryProtocol {
     func fetchDnFCharacters(name: String) async throws -> [JustCharacter]
     func fetchDnFCharacter(server: String, name: String) async throws -> JustCharacter
+    func fetchDnFCharacterInfo(server: String, id: String) async throws -> CharacterInfo
+    func fetchDnFTimeline(server: String, id: String) async throws -> Timeline
 }
 
 public final class DnFRepository: DnFRepositoryProtocol {
@@ -33,21 +35,33 @@ public final class DnFRepository: DnFRepositoryProtocol {
     }
     
     public func fetchDnFCharacterInfo(server: String, id: String) async throws -> CharacterInfo {
-        let baseInfo = try await apiService.getCharacterInfo(server: server, id: id)
-        let status = try await apiService.getStatus(server: server, id: id)
-        let equipment = try await apiService.getEquipment(server: server, id: id)
-        let avatar = try await apiService.getAvatar(server: server, id: id)
-        let creature = try await apiService.getCreature(server: server, id: id)
-        let flag = try await apiService.getFlag(server: server, id: id)
-        let skill = try await apiService.getSkills(server: server, id: id)
-        return CharacterInfo(
-            baseInfo: .init(dto: baseInfo),
-            status: .init(dto: status),
-            equipment: equipment.equipment.map { .init(dto: $0) },
-            avatar: avatar.avatar.map { .init(dto: $0) },
-            creature: .init(dto: creature.creature),
-            flag: .init(dto: flag.flag),
-            skill: .init(dto: skill.skill)
+        let baseInfoDTO = try await apiService.getCharacterInfo(server: server, id: id)
+        let statusDTO = try await apiService.getStatus(server: server, id: id)
+        let equipmentDTO = try await apiService.getEquipment(server: server, id: id)
+        let avatarDTO = try await apiService.getAvatar(server: server, id: id)
+        let creatureDTO = try await apiService.getCreature(server: server, id: id)
+        let flagDTO = try await apiService.getFlag(server: server, id: id)
+        let skillDTO = try await apiService.getSkills(server: server, id: id)
+        return .init(
+            baseInfo: .init(dto: baseInfoDTO),
+            status: .init(dto: statusDTO),
+            equipment: equipmentDTO.equipment.map { .init(dto: $0) },
+            avatar: avatarDTO.avatar.map { .init(dto: $0) },
+            creature: .init(dto: creatureDTO.creature),
+            flag: .init(dto: flagDTO.flag),
+            skill: .init(dto: skillDTO.skill)
+        )
+    }
+    
+    public func fetchDnFTimeline(server: String, id: String) async throws -> Timeline {
+        let date = Date()
+        // 날짜 계산해서 캐릭터 생성일 전까지 계속 루프
+        let raidsDTO = try await apiService.getTimeline(server: server, id: id, code: [201,210], date: date, next: nil)
+        let itemDropsDTO = try await apiService.getTimeline(server: server, id: id, code: [504,505,507], date: date, next: nil)
+        // TODO: 초월 (516) 데이터도 필요 (adventureSafeMoveType)
+        return .init(
+            raids: raidsDTO.timeline.rows.compactMap { .init(dto: $0) },
+            itemDrops: itemDropsDTO.timeline.rows.compactMap { .init(dto: $0) }
         )
     }
 }

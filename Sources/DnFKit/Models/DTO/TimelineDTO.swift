@@ -6,7 +6,7 @@
 //
 
 // MARK: - TimelineResponseDTO
-struct TimelineResponseDTO: Codable {
+public struct TimelineResponseDTO: Codable {
     let serverId: String        // 서버명 ex) cain
     let characterId: String     // 캐릭터 고유 코드
     let characterName: String   // 캐릭터 이름
@@ -16,7 +16,7 @@ struct TimelineResponseDTO: Codable {
 // MARK: - TimelineDTO
 struct TimelineDTO: Codable {
     let date: DateClassDTO
-    let next: String
+    let next: String?
     let rows: [TimelineRowDTO]
 }
 
