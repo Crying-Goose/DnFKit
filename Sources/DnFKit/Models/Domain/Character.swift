@@ -57,26 +57,3 @@ public struct Character: Sendable {
         self.guildName = dto.guildName ?? ""
     }
 }
-
-// MARK: - CharacterInfo
-public struct CharacterInfo: Sendable {
-    public let baseInfo: Character
-    public let status: Status
-    public let equipment: [Equipment]
-    public let avatar: [Avatar]
-    public let creature: Creature
-    public let flag: Flag
-    public let buffs: [Buff]
-    public let skill: SkillStyle
-    
-    init(baseInfo: Character, status: Status, equipment: [Equipment], avatar: [Avatar], creature: Creature, flag: Flag, buffs: [Buff], skill: SkillStyle) {
-        self.baseInfo = baseInfo
-        self.status = status
-        self.equipment = equipment
-        self.avatar = avatar
-        self.creature = creature
-        self.flag = flag
-        self.buffs = buffs
-        self.skill = skill
-    }
-}

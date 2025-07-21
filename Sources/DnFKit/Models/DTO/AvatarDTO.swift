@@ -13,7 +13,7 @@ public struct AvatarResponseDTO: Codable {
     let level: Int
     let jobId, jobGrowId, jobName, jobGrowName: String
     let fame: Int
-    let adventureName, guildId, guildName: String
+    let adventureName, guildId, guildName: String?
     let avatar: [AvatarElementDTO]
 }
 

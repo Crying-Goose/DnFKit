@@ -13,7 +13,7 @@ public struct CreatureResponseDTO: Codable {
     public let level: Int
     public let jobId, jobGrowId, jobName, jobGrowName: String
     public let fame: Int
-    public let adventureName, guildId, guildName: String
+    public let adventureName, guildId, guildName: String?
     public let creature: CreatureClassDTO
 }
 
