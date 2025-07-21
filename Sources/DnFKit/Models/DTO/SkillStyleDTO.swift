@@ -26,7 +26,7 @@ struct SkillDTO: Codable {
 // MARK: - StyleDTO
 struct StyleDTO: Codable {
     let active, passive: [IveDTO]
-    let evolution, enhancement: [SkillStageDTO]
+    let evolution, enhancement: [SkillStageDTO]?
 }
 
 // MARK: - IveDTO

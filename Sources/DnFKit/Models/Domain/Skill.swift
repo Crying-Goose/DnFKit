@@ -18,8 +18,8 @@ public struct SkillStyle: Sendable {
         self.hash = dto.hash
         self.active = dto.style.active.map { .init(dto: $0) }
         self.passive = dto.style.passive.map { .init(dto: $0) }
-        self.evolution = dto.style.evolution.map { .init(dto: $0) }
-        self.enhancement = dto.style.enhancement.map { .init(dto: $0) }
+        self.evolution = dto.style.evolution?.compactMap { .init(dto: $0) } ?? []
+        self.enhancement = dto.style.enhancement?.compactMap { .init(dto: $0) } ?? []
     }
 }
 
