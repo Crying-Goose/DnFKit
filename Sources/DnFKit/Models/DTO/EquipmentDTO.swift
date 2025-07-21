@@ -15,7 +15,7 @@ public struct EquipmentResponseDTO: Codable {
     let fame: Int
     let adventureName, guildId, guildName: String?
     let equipment: [EquipmentElementDTO]
-    let setItemInfo: [SetItemInfoDTO]
+    let setItemInfo: [SetItemInfoDTO]?
 }
 
 // MARK: - EquipmentElementDTO

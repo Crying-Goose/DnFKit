@@ -70,3 +70,18 @@ public struct UpgradeInfo: Sendable {
         self.rarity = dto.itemRarity
     }
 }
+
+public struct SetItemInfo: Sendable {
+    let id: String
+    let name: String
+    let rarity: String
+    let setPoint: Int
+    
+    init(dto: SetItemInfoDTO) {
+        self.id = dto.setItemId
+        self.name = dto.setItemName
+        self.rarity = dto.setItemRarityName
+        self.setPoint = dto.active.setPoint.current
+    }
+    
+}
