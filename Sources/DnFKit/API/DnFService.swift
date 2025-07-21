@@ -16,6 +16,9 @@ public protocol DnFAPIServiceProtocol {
     func getEquipment(server: String, id: String) async throws -> EquipmentResponseDTO
     func getAvatar(server: String, id: String) async throws -> AvatarResponseDTO
     func getCreature(server: String, id: String) async throws -> CreatureResponseDTO
+    func getBuffEquipment(server: String, id: String) async throws -> BuffEquipmentResponseDTO
+    func getBuffAvatar(server: String, id: String) async throws -> BuffEquipmentResponseDTO
+    func getBuffCreature(server: String, id: String) async throws -> BuffEquipmentResponseDTO
     func getFlag(server: String, id: String) async throws -> FlagResponseDTO
     func getSkills(server: String, id: String) async throws -> SkillStyleResponseDTO
     func getTimeline(server: String, id: String, code: [Int], date: Date, next: String?) async throws -> TimelineResponseDTO
@@ -161,6 +164,63 @@ public final class DnFService: DnFAPIServiceProtocol {
                 case .success(let response):
                     do {
                         let dto = try JSONDecoder().decode(CreatureResponseDTO.self, from: response.data)
+                        continuation.resume(returning: dto)
+                    } catch {
+                        continuation.resume(throwing: error)
+                    }
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+    
+    // 캐릭터 버프 강화 장비 정보 조회
+    public func getBuffEquipment(server: String, id: String) async throws -> BuffEquipmentResponseDTO {
+        return try await withCheckedThrowingContinuation { continuation in
+            provider.request(.buffEquipment(server: server, characterId: id)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let dto = try JSONDecoder().decode(BuffEquipmentResponseDTO.self, from: response.data)
+                        continuation.resume(returning: dto)
+                    } catch {
+                        continuation.resume(throwing: error)
+                    }
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+    
+    // 캐릭터 버프 강화 아바타 정보 조회
+    public func getBuffAvatar(server: String, id: String) async throws -> BuffEquipmentResponseDTO {
+        return try await withCheckedThrowingContinuation { continuation in
+            provider.request(.buffAvatar(server: server, characterId: id)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let dto = try JSONDecoder().decode(BuffEquipmentResponseDTO.self, from: response.data)
+                        continuation.resume(returning: dto)
+                    } catch {
+                        continuation.resume(throwing: error)
+                    }
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+    
+    // 캐릭터 버프 강화 크리쳐 정보 조회
+    public func getBuffCreature(server: String, id: String) async throws -> BuffEquipmentResponseDTO {
+        return try await withCheckedThrowingContinuation { continuation in
+            provider.request(.buffCreature(server: server, characterId: id)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let dto = try JSONDecoder().decode(BuffEquipmentResponseDTO.self, from: response.data)
                         continuation.resume(returning: dto)
                     } catch {
                         continuation.resume(throwing: error)

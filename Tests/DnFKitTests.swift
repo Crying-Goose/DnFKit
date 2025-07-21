@@ -102,6 +102,31 @@ final class DnFKitTests: XCTestCase {
         XCTAssertNotNil(result, "검색 결과가 없음")
     }
     
+    func testGetBuffs() async throws {
+        // ✅ 준비
+        let apiService = DnFService()
+        let id = "96b4b30b29b96bdaa835ba3def65efc2"
+        let server = "cain"
+
+        // ✅ 실행
+        let result1 = try await apiService.getBuffEquipment(server: server, id: id)
+        let result2 = try await apiService.getBuffAvatar(server: server, id: id)
+        let result3 = try await apiService.getBuffCreature(server: server, id: id)
+        
+        // ✅ 출력
+        print(result1)
+        print(result2)
+        print(result3)
+
+        // ✅ 검증
+        XCTAssertNoThrow(result1)
+        XCTAssertNoThrow(result2)
+        XCTAssertNoThrow(result3)
+        XCTAssertNotNil(result1, "검색 결과가 없음")
+        XCTAssertNotNil(result2, "검색 결과가 없음")
+        XCTAssertNotNil(result3, "검색 결과가 없음")
+    }
+    
     func testFetchInfo() async throws {
         // ✅ 준비
         let repository = DnFRepository()

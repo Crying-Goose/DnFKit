@@ -19,7 +19,9 @@ public enum DnFTarget {
     case creature(server: String, characterId: String)
     case flag(server: String, characterId: String)
     case skill(server: String, characterId: String)
-    case buff(server: String, characterId: String)
+    case buffEquipment(server: String, characterId: String)
+    case buffAvatar(server: String, characterId: String)
+    case buffCreature(server: String, characterId: String)
 }
 
 public enum DnFToken {
@@ -60,8 +62,12 @@ extension DnFTarget: TargetType {
             return "/servers/\(server)/characters/\(characterId)/equip/flag"
         case .skill(let server, let characterId):
             return "/servers/\(server)/characters/\(characterId)/skill/style"
-        case .buff(let server, let characterId):
+        case .buffEquipment(let server, let characterId):
             return "/servers/\(server)/characters/\(characterId)/skill/buff/equip/equipment"
+        case .buffAvatar(let server, let characterId):
+            return "/servers/\(server)/characters/\(characterId)/skill/buff/equip/avatar"
+        case .buffCreature(let server, let characterId):
+            return "/servers/\(server)/characters/\(characterId)/skill/buff/equip/creature"
         }
     }
 
@@ -92,7 +98,7 @@ extension DnFTarget: TargetType {
                 "next": next ?? "",
                 "apikey": DnFToken.key
             ], encoding: URLEncoding.default)
-        case .characterInfo, .status, .avatar, .equipment, .creature, .flag, .skill, .buff:
+        case .characterInfo, .status, .avatar, .equipment, .creature, .flag, .skill, .buffEquipment, .buffAvatar, .buffCreature:
             return .requestParameters(parameters: ["apikey": DnFToken.key], encoding: URLEncoding.default)
         }
     }

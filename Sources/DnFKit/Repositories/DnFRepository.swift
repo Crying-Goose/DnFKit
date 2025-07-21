@@ -42,6 +42,19 @@ public final class DnFRepository: DnFRepositoryProtocol {
         let creatureDTO = try await apiService.getCreature(server: server, id: id)
         let flagDTO = try await apiService.getFlag(server: server, id: id)
         let skillDTO = try await apiService.getSkills(server: server, id: id)
+        let buffEquipmentDTO = try await apiService.getBuffEquipment(server: server, id: id)
+        let buffAvalarDTO = try await apiService.getBuffAvatar(server: server, id: id)
+        let buffCreatureDTO = try await apiService.getBuffCreature(server: server, id: id)
+        var buffs: [Buff] = []
+        buffEquipmentDTO.skill.buff.equipment?.forEach {
+            buffs.append(.init(equipmentDto: $0))
+        }
+        buffAvalarDTO.skill.buff.avatar?.forEach {
+            buffs.append(.init(avatarDto: $0))
+        }
+        buffCreatureDTO.skill.buff.creature?.forEach {
+            buffs.append(.init(creatureDto: $0))
+        }
         return .init(
             baseInfo: .init(dto: baseInfoDTO),
             status: .init(dto: statusDTO),
@@ -49,6 +62,7 @@ public final class DnFRepository: DnFRepositoryProtocol {
             avatar: avatarDTO.avatar.map { .init(dto: $0) },
             creature: .init(dto: creatureDTO.creature),
             flag: .init(dto: flagDTO.flag),
+            buffs: buffs,
             skill: .init(dto: skillDTO.skill)
         )
     }
