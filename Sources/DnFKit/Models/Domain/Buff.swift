@@ -30,7 +30,7 @@ public struct Buff: Sendable {
         self.rarity = dto.itemRarity
         self.type = ""
         self.typeDetail = ""
-        self.emblem = dto.emblems.map { .init(dto: $0) }
+        self.emblem = dto.emblems?.compactMap { .init(dto: $0) } ?? []
     }
     
     init(creatureDto dto: BuffCreatureDTO) {

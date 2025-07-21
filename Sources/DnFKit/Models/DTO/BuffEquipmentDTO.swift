@@ -48,7 +48,7 @@ public struct BuffAvatarDTO: Codable {
     public let itemRarity: String
     public let clone: CloneDTO
     public let optionAbility: String
-    public let emblems: [EmblemDTO]
+    public let emblems: [EmblemDTO]?
 }
 
 // MARK: - BuffCreature
