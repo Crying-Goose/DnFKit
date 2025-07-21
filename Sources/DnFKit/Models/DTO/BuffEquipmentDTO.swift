@@ -54,7 +54,7 @@ public struct BuffAvatarDTO: Codable {
 // MARK: - BuffCreature
 public struct BuffCreatureDTO: Codable {
     public let itemId, itemName, itemRarity: String
-    public let enchant: BuffEnchantDTO
+    public let enchant: BuffEnchantDTO?
 }
 
 // MARK: - Enchant
