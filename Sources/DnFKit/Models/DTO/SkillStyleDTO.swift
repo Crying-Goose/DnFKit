@@ -32,7 +32,8 @@ struct StyleDTO: Codable {
 // MARK: - IveDTO
 struct IveDTO: Codable {
     let skillId, name: String
-    let level, requiredLevel: Int
+    let level: Int
+    let requiredLevel: Int?
 }
 
 // MARK: - SkillStageDTO

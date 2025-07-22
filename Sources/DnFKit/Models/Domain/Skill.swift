@@ -33,7 +33,7 @@ public struct Skill: Sendable {
         self.id = dto.skillId
         self.name = dto.name
         self.level = dto.level
-        self.requiredLevel = dto.requiredLevel
+        self.requiredLevel = dto.requiredLevel ?? 0
     }
 }
 
