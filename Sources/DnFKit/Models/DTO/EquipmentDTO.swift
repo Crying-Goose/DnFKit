@@ -28,7 +28,7 @@ public struct EquipmentElementDTO: Codable {
     let setItemName: String?
     let reinforce: Int
     let itemGradeName: String?
-    let enchant: EnchantDTO
+    let enchant: EnchantDTO?
     let amplificationName: String?
     let refine: Int
     let tune: [TuneDTO]?

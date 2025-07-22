@@ -29,7 +29,7 @@ public struct Equipment: Sendable {
         self.rarity = dto.itemRarity
         self.availableLevel = dto.itemAvailableLevel
         self.refine = dto.refine
-        self.enchant = dto.enchant.status.map { .init(dto: $0) }
+        self.enchant = dto.enchant?.status.compactMap { .init(dto: $0) } ?? []
         self.amplificationName = dto.amplificationName ?? ""
         self.tune = dto.tune?.compactMap { .init(dto: $0) } ?? []
         self.fusionOption = dto.fusionOption?.options.compactMap { .init(dto: $0) } ?? []
