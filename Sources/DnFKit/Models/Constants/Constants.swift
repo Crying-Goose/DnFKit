@@ -32,13 +32,13 @@ public enum DnFConstants {
         
         public var haxColor: String {
             switch self {
-            case .common: return "#FFFFFF"
-            case .uncommon: return "#68D5ED"
-            case .rare: return "#B36BFF"
-            case .unique: return "#FF00FF"
-            case .legendary: return "#FFB400"
-            case .epic: return "#FFFFFF"
-            case .beginning: return "#2EC38E"
+            case .common: return "FFFFFF"
+            case .uncommon: return "68D5ED"
+            case .rare: return "B36BFF"
+            case .unique: return "FF00FF"
+            case .legendary: return "FFB400"
+            case .epic: return "FFFFFF"
+            case .beginning: return "2EC38E"
             }
         }
         
