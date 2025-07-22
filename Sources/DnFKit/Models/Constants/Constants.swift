@@ -36,8 +36,8 @@ public enum DnFConstants {
             case .uncommon: return "68D5ED"
             case .rare: return "B36BFF"
             case .unique: return "FF00FF"
-            case .legendary: return "FFB400"
-            case .epic: return "FFFFFF"
+            case .legendary: return "FF7800"
+            case .epic: return "FFB400"
             case .beginning: return "2EC38E"
             }
         }
