@@ -30,7 +30,7 @@ public enum DnFConstants {
             }
         }
         
-        public var haxColor: String {
+        public var hexColor: String {
             switch self {
             case .common: return "FFFFFF"
             case .uncommon: return "68D5ED"
