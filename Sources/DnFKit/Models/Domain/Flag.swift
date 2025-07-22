@@ -18,8 +18,8 @@ public struct Flag: Sendable {
         self.id = dto.itemId
         self.name = dto.itemName
         self.reinforce = dto.reinforce
-        self.status = dto.reinforceStatus.map { .init(dto: $0) }
-        self.gems = dto.gems.map { .init(dto: $0) }
+        self.status = dto.reinforceStatus?.compactMap { .init(dto: $0) } ?? []
+        self.gems = dto.gems?.compactMap { .init(dto: $0) } ?? []
     }
 }
 

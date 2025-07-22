@@ -14,15 +14,15 @@ public struct FlagResponseDTO: Codable {
     let jobId, jobGrowId, jobName, jobGrowName: String
     let fame: Int
     let adventureName, guildId, guildName: String?
-    let flag: FlagClassDTO
+    let flag: FlagClassDTO?
 }
 
 // MARK: - FlagClassDTO
 struct FlagClassDTO: Codable {
     let itemId, itemName, itemRarity: String
     let reinforce: Int
-    let reinforceStatus: [StatusElementDTO]
-    let gems: [GemDTO]
+    let reinforceStatus: [StatusElementDTO]?
+    let gems: [GemDTO]?
 }
 
 // MARK: - GemDTO

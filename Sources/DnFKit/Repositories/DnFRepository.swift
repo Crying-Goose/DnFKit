@@ -15,9 +15,9 @@ public protocol DnFRepositoryProtocol {
     func fetchDnFCharacterEquipment(server: String, id: String) async throws -> [Equipment]
     func fetchDnFCharacterSkillStyle(server: String, id: String) async throws -> SkillStyle
     func fetchDnFCharacterAvatar(server: String, id: String) async throws -> [Avatar]
-    func fetchDnFCharacterFlag(server: String, id: String) async throws -> Flag
+    func fetchDnFCharacterFlag(server: String, id: String) async throws -> Flag?
     func fetchDnFCharacterBuffs(server: String, id: String) async throws -> [Buff]
-    func fetchDnFChracterCreature(server: String, id: String) async throws -> Creature
+    func fetchDnFChracterCreature(server: String, id: String) async throws -> Creature?
     func fetchDnFTimeline(server: String, id: String) async throws -> Timeline
 }
 
@@ -56,7 +56,7 @@ public final class DnFRepository: DnFRepositoryProtocol {
     // 캐릭터 장비 검색
     public func fetchDnFCharacterEquipment(server: String, id: String) async throws -> [Equipment] {
         let response = try await apiService.getEquipment(server: server, id: id)
-        return response.equipment.compactMap { .init(dto: $0) }
+        return response.equipment?.compactMap { .init(dto: $0) } ?? []
     }
     
     // 캐릭터 스킬 검색
@@ -72,9 +72,10 @@ public final class DnFRepository: DnFRepositoryProtocol {
     }
     
     // 캐릭터 휘장 검색
-    public func fetchDnFCharacterFlag(server: String, id: String) async throws -> Flag {
+    public func fetchDnFCharacterFlag(server: String, id: String) async throws -> Flag? {
         let response = try await apiService.getFlag(server: server, id: id)
-        return .init(dto: response.flag)
+        guard let flag = response.flag else { return nil }
+        return .init(dto: flag)
     }
     
     // 캐릭터 버프 강화 검색
@@ -96,9 +97,10 @@ public final class DnFRepository: DnFRepositoryProtocol {
     }
     
     // 캐릭터 크리쳐 검색
-    public func fetchDnFChracterCreature(server: String, id: String) async throws -> Creature {
+    public func fetchDnFChracterCreature(server: String, id: String) async throws -> Creature? {
         let response = try await apiService.getCreature(server: server, id: id)
-        return .init(dto: response.creature)
+        guard let creature = response.creature else { return nil }
+        return .init(dto: creature)
     }
     
     // 캐릭터 타임라인 검색
