@@ -38,10 +38,10 @@ public struct Clone: Sendable {
 }
 
 public struct Emblem: Sendable {
-    let slotNo: Int
-    let id: String
-    let name: String
-    let rarity: String
+    public let slotNo: Int
+    public let id: String
+    public let name: String
+    public let rarity: String
     
     init(dto: EmblemDTO) {
         self.slotNo = dto.slotNo
