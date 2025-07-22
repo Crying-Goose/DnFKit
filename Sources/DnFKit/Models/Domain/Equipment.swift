@@ -38,10 +38,12 @@ public struct Equipment: Sendable {
 }
 
 public struct Tune: Sendable {
+    public let level: Int?
     public let setPoint: Int
     public let status: [StatusInfo]
     
     init(dto:TuneDTO) {
+        self.level = dto.level
         self.setPoint = dto.setPoint ?? 0
         var status: [StatusInfo] = []
         dto.status?.forEach { status.append(.init(dto: $0)) }
