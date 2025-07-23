@@ -22,6 +22,9 @@ public protocol DnFAPIServiceProtocol {
     func getFlag(server: String, id: String) async throws -> FlagResponseDTO
     func getSkills(server: String, id: String) async throws -> SkillStyleResponseDTO
     func getTimeline(server: String, id: String, code: [Int], date: Date, next: String?) async throws -> TimelineResponseDTO
+    func getItems(name: String) async throws -> ItemResponseDTO
+    func getItem(name: String, workType: String) async throws -> ItemResponseDTO
+    func getAuction(id: String) async throws -> AuctionResponseDTO
 }
 
 struct CustomURLLoggerPlugin: PluginType {
@@ -281,6 +284,63 @@ public final class DnFService: DnFAPIServiceProtocol {
                 case .success(let response):
                     do {
                         let dto = try JSONDecoder().decode(TimelineResponseDTO.self, from: response.data)
+                        continuation.resume(returning: dto)
+                    } catch {
+                        continuation.resume(throwing: error)
+                    }
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+    
+    // 아이템 조회
+    public func getItems(name: String) async throws -> ItemResponseDTO {
+        return try await withCheckedThrowingContinuation { continuation in
+            provider.request(.item(name: name)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let dto = try JSONDecoder().decode(ItemResponseDTO.self, from: response.data)
+                        continuation.resume(returning: dto)
+                    } catch {
+                        continuation.resume(throwing: error)
+                    }
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+    
+    // 아이템 조회(단일)
+    public func getItem(name: String, workType: String) async throws -> ItemResponseDTO {
+        return try await withCheckedThrowingContinuation { continuation in
+            provider.request(.item(name: name, wordType: workType)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let dto = try JSONDecoder().decode(ItemResponseDTO.self, from: response.data)
+                        continuation.resume(returning: dto)
+                    } catch {
+                        continuation.resume(throwing: error)
+                    }
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+    
+    // 경매장 검색
+    public func getAuction(id: String) async throws -> AuctionResponseDTO {
+        return try await withCheckedThrowingContinuation { continuation in
+            provider.request(.auction(id: id)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let dto = try JSONDecoder().decode(AuctionResponseDTO.self, from: response.data)
                         continuation.resume(returning: dto)
                     } catch {
                         continuation.resume(throwing: error)

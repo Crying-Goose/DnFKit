@@ -19,6 +19,9 @@ public protocol DnFRepositoryProtocol {
     func fetchDnFCharacterBuffs(server: String, id: String) async throws -> [Buff]
     func fetchDnFChracterCreature(server: String, id: String) async throws -> Creature?
     func fetchDnFTimeline(server: String, id: String) async throws -> Timeline
+    func fetchDnFItems(name: String) async throws -> [Item]
+    func fetchDnFItem(name: String) async throws -> Item?
+    func fetchDnFAuction(id: String) async throws -> [Auction]
 }
 
 public final class DnFRepository: DnFRepositoryProtocol {
@@ -114,5 +117,24 @@ public final class DnFRepository: DnFRepositoryProtocol {
             raids: raidsDTO.timeline.rows.compactMap { .init(dto: $0) },
             itemDrops: itemDropsDTO.timeline.rows.compactMap { .init(dto: $0) }
         )
+    }
+    
+    // 아이템 검색
+    public func fetchDnFItems(name: String) async throws -> [Item] {
+        let response = try await apiService.getItems(name: name)
+        return response.rows.map { .init(dto:$0) }
+    }
+    
+    // 단일 아이템 검색
+    public func fetchDnFItem(name: String) async throws -> Item? {
+        let response = try await apiService.getItem(name: name, workType: "match")
+        guard response.rows.count > 0 else { return nil }
+        return .init(dto: response.rows[0])
+    }
+    
+    // 경매장 검색
+    public func fetchDnFAuction(id: String) async throws -> [Auction] {
+        let response = try await apiService.getAuction(id: id)
+        return response.rows.map { .init(dto: $0) }
     }
 }

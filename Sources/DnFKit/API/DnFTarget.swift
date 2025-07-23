@@ -22,6 +22,9 @@ public enum DnFTarget {
     case buffEquipment(server: String, characterId: String)
     case buffAvatar(server: String, characterId: String)
     case buffCreature(server: String, characterId: String)
+    case item(name: String, wordType: String = "front")
+    case itemDetail(id: String)
+    case auction(id: String)
 }
 
 public enum DnFToken {
@@ -68,6 +71,15 @@ extension DnFTarget: TargetType {
             return "/servers/\(server)/characters/\(characterId)/skill/buff/equip/avatar"
         case .buffCreature(let server, let characterId):
             return "/servers/\(server)/characters/\(characterId)/skill/buff/equip/creature"
+        case .item:
+            return
+                "/items"
+        case .itemDetail(let id):
+            return
+                "/items/\(id)"
+        case .auction:
+            return
+                "/auction"
         }
     }
 
@@ -98,8 +110,22 @@ extension DnFTarget: TargetType {
                 "next": next ?? "",
                 "apikey": DnFToken.key
             ], encoding: URLEncoding.default)
-        case .characterInfo, .status, .avatar, .equipment, .creature, .flag, .skill, .buffEquipment, .buffAvatar, .buffCreature:
-            return .requestParameters(parameters: ["apikey": DnFToken.key], encoding: URLEncoding.default)
+        case .item(let name, let wordType):
+            return .requestParameters(parameters: [
+                "itemName": name,
+                "wordType": wordType,
+                "apikey": DnFToken.key
+            ], encoding: URLEncoding.default)
+        case .auction(let id):
+            return .requestParameters(parameters: [
+                "itemId": id,
+                "sort": "unitPrice:asc",
+                "apikey": DnFToken.key
+            ], encoding: URLEncoding.default)
+        case .characterInfo, .status, .avatar, .equipment, .creature, .flag, .skill, .buffEquipment, .buffAvatar, .buffCreature, .itemDetail:
+            return .requestParameters(parameters: [
+                "apikey": DnFToken.key
+            ], encoding: URLEncoding.default)
         }
     }
 
