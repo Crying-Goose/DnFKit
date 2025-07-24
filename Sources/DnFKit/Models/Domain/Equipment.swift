@@ -15,6 +15,7 @@ public struct Equipment: Sendable {
     public let rarity: String
     public let availableLevel: Int
     public let refine: Int          // 재련
+    public let reinforce: Int       // 증폭 or 강화
     public let enchant: [StatusInfo]
     public let amplificationName: String
     public let tune: [Tune]
@@ -29,6 +30,7 @@ public struct Equipment: Sendable {
         self.rarity = dto.itemRarity
         self.availableLevel = dto.itemAvailableLevel
         self.refine = dto.refine
+        self.reinforce = dto.reinforce
         self.enchant = dto.enchant?.status.compactMap { .init(dto: $0) } ?? []
         self.amplificationName = dto.amplificationName ?? ""
         self.tune = dto.tune?.compactMap { .init(dto: $0) } ?? []
