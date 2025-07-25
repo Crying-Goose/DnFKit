@@ -8,12 +8,12 @@
 import Foundation
 
 public protocol EquipmentUseCaseDelegate {
-    func enchantToStirng(enchant: [StatusInfo], jobCode: String) -> String
+    static func enchantToStirng(enchant: [StatusInfo], jobCode: String) -> String
 }
 
 public final class EquipmentUseCase: EquipmentUseCaseDelegate {
     
-    public func enchantToStirng(enchant: [StatusInfo], jobCode: String) -> String {
+    public static func enchantToStirng(enchant: [StatusInfo], jobCode: String) -> String {
         var result: String = ""
         guard let jobInfo = EquipmentUseCase.jobGrowTypeMap[jobCode] else { return "" }
         let exceptionStats = jobInfo.attackType.exceptionStat
@@ -28,8 +28,8 @@ public final class EquipmentUseCase: EquipmentUseCaseDelegate {
         return result
     }
     
-    private func abbreviated(from s: String) -> String {
-        for (original, short) in EquipmentUseCase.abbreviationMap {
+    private static func abbreviated(from s: String) -> String {
+        for (original, short) in abbreviationMap {
             if s.contains(original) {
                 return s.replacingOccurrences(of: original, with: short)
             }
