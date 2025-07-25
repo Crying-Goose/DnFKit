@@ -23,7 +23,7 @@ public final class EquipmentUseCase: EquipmentUseCaseDelegate {
         for (index, stat) in damageFilteredEnchant.enumerated() {
             let abbreviatedName = abbreviated(from: stat.name)
             result += "\(abbreviatedName):\(stat.value.formattedCleanString)"
-            if index < enchant.count - 1 {
+            if index < damageFilteredEnchant.count - 1 {
                 result += ", "
             }
         }
@@ -52,8 +52,8 @@ extension EquipmentUseCase {
         
         var exceptionStat: [String] {
             switch self {
-            case .physical: ["지능", "체력", "정신력", "마법 공격력"]
-            case .magical: ["힘", "체력", "정신력", "물리 공격력"]
+            case .physical: ["지능", "체력", "정신력", "마법 공격력", "마법 크리티컬"]
+            case .magical: ["힘", "체력", "정신력", "물리 공격력", "물리 크리티컬"]
             case .conversion: ["체력", "정신력"]
             case .bufferMental: ["힘", "지능", "체력", "물리 공격력", "마법 공격력"]
             case .bufferMentalOrStrength: ["힘", "지능", "물리 공격력", "마법 공격력"]
