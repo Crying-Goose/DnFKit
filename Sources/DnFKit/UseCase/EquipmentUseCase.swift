@@ -18,8 +18,9 @@ public final class EquipmentUseCase: EquipmentUseCaseDelegate {
         guard let jobInfo = EquipmentUseCase.jobGrowTypeMap[jobCode] else { return "" }
         let typeExceptionStats = jobInfo.attackType.exceptionStat
         let damageExceptionStats = jobInfo.damageType.exceptionStat
-        let filteredEnchant = enchant.filter { !typeExceptionStats.contains($0.name) || !damageExceptionStats.contains($0.name) }
-        for (index, stat) in filteredEnchant.enumerated() {
+        let typeFilteredEnchant = enchant.filter { !typeExceptionStats.contains($0.name)}
+        let damageFilteredEnchant = typeFilteredEnchant.filter { !damageExceptionStats.contains($0.name)}
+        for (index, stat) in damageFilteredEnchant.enumerated() {
             let abbreviatedName = abbreviated(from: stat.name)
             result += "\(abbreviatedName):\(stat.value.formattedCleanString)"
             if index < enchant.count - 1 {
