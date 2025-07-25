@@ -16,9 +16,10 @@ public final class EquipmentUseCase: EquipmentUseCaseDelegate {
     public static func enchantToStirng(enchant: [StatusInfo], jobCode: String) -> String {
         var result: String = ""
         guard let jobInfo = EquipmentUseCase.jobGrowTypeMap[jobCode] else { return "" }
-        let exceptionStats = jobInfo.attackType.exceptionStat
-        let filteredEnchant = enchant.filter { !exceptionStats.contains($0.name) }
-        for (index, stat) in enchant.enumerated() {
+        let typeExceptionStats = jobInfo.attackType.exceptionStat
+        let damageExceptionStats = jobInfo.damageType.exceptionStat
+        let filteredEnchant = enchant.filter { !typeExceptionStats.contains($0.name) && !damageExceptionStats.contains($0.name) }
+        for (index, stat) in filteredEnchant.enumerated() {
             let abbreviatedName = abbreviated(from: stat.name)
             result += "\(abbreviatedName):\(stat.value)"
             if index < enchant.count - 1 {
@@ -50,12 +51,12 @@ extension EquipmentUseCase {
         
         var exceptionStat: [String] {
             switch self {
-            case .physical: ["지능", "체력", "정신력"]
-            case .magical: ["힘", "체력", "정신력"]
+            case .physical: ["지능", "체력", "정신력, 마법 공격력"]
+            case .magical: ["힘", "체력", "정신력, 물리 공격력"]
             case .conversion: ["체력", "정신력"]
-            case .bufferMental: ["힘", "지능", "체력"]
-            case .bufferMentalOrStrength: ["힘", "지능"]
-            case .bufferIntelligence: ["힘", "정신력", "체력"]
+            case .bufferMental: ["힘", "지능", "체력", "물리 공격력", "마법 공격력"]
+            case .bufferMentalOrStrength: ["힘", "지능", "물리 공격력", "마법 공격력"]
+            case .bufferIntelligence: ["힘", "정신력", "체력", "물리 공격력", "마법 공격력"]
             }
         }
     }
@@ -63,6 +64,13 @@ extension EquipmentUseCase {
     enum DamageType {
         case percent
         case fixed
+        
+        var exceptionStat: [String] {
+            switch self {
+            case .percent: ["독립 공격력"]
+            case .fixed: ["물리 공격력", "마법 공격력"]
+            }
+        }
     }
 
     struct JobTypeInfo {
@@ -182,4 +190,20 @@ extension EquipmentUseCase {
         "스킬 쿨타임 감소": "쿨감",
         "모험가 명성": "명성"
     ]
+}
+
+extension Double {
+    var cleanString: String {
+        return self.truncatingRemainder(dividingBy: 1) == 0
+            ? String(format: "%.0f", self)
+            : String(self)
+    }
+    
+    var formattedCleanString: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = self.truncatingRemainder(dividingBy: 1) == 0 ? 0 : 2
+        formatter.maximumFractionDigits = 2
+        return formatter.string(from: NSNumber(value: self)) ?? String(self)
+    }
 }
