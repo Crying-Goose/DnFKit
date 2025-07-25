@@ -17,12 +17,14 @@ public struct Equipment: Sendable {
     public let refine: Int          // 재련
     public let reinforce: Int       // 증폭 or 강화
     public let enchant: [StatusInfo]
+    public let skillEnchant: [StatusInfo]
+    public var enchantString: String
     public let amplificationName: String
     public let tune: [Tune]
     public let fusionOption: [FusionOption]
     public let upgradeInfo: UpgradeInfo?
     
-    init(dto: EquipmentElementDTO) {
+    init(dto: EquipmentElementDTO, jobId: String) {
         self.id = dto.itemId
         self.name = dto.itemName
         self.type = dto.itemType
@@ -32,10 +34,26 @@ public struct Equipment: Sendable {
         self.refine = dto.refine
         self.reinforce = dto.reinforce
         self.enchant = dto.enchant?.status.compactMap { .init(dto: $0) } ?? []
+        var skillEnchant: [StatusInfo] = []
+        if let reinforceSkills = dto.enchant?.reinforceSkill {
+            reinforceSkills.forEach { skill in
+                if (skill.jobId == jobId) {
+                    skillEnchant = skill.skills.map { .init(name: $0.name, value: $0.value.doubleValue) }
+                }
+            }
+        }
+        self.skillEnchant = skillEnchant
+        self.enchantString = ""
         self.amplificationName = dto.amplificationName ?? ""
         self.tune = dto.tune?.compactMap { .init(dto: $0) } ?? []
         self.fusionOption = dto.fusionOption?.options.compactMap { .init(dto: $0) } ?? []
         self.upgradeInfo = dto.upgradeInfo.map { .init(dto: $0) }
+    }
+    
+    func with(enchantString: String) -> Equipment {
+        var copy = self
+        copy.enchantString = enchantString
+        return copy
     }
 }
 
@@ -76,10 +94,10 @@ public struct UpgradeInfo: Sendable {
 }
 
 public struct SetItemInfo: Sendable {
-    let id: String
-    let name: String
-    let rarity: String
-    let setPoint: Int
+    public let id: String
+    public let name: String
+    public let rarity: String
+    public let setPoint: Int
     
     init(dto: SetItemInfoDTO) {
         self.id = dto.setItemId

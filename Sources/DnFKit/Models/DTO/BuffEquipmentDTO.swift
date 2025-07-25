@@ -70,7 +70,8 @@ public struct ReinforceSkillDTO: Codable {
 
 // MARK: - SkillElement
 public struct SkillElementDTO: Codable {
-    public let skillId, name, value: String
+    public let skillId, name: String
+    public let value: Value
 }
 
 // MARK: - SkillInfo

@@ -14,7 +14,6 @@ public protocol ItemOptimizationUseCaseDelegate {
 
 public final class ItemOptimizationUseCase: ItemOptimizationUseCaseDelegate {
     
-    
     private let repository: DnFRepository
     
     public init(repository: DnFRepository) {

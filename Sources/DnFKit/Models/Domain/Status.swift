@@ -39,4 +39,9 @@ public struct StatusInfo: Sendable {
         self.name = dto.name
         self.value = dto.value.doubleValue
     }
+    
+    init(name: String, value: Double) {
+        self.name = name
+        self.value = value
+    }
 }

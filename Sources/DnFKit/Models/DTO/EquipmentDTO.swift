@@ -38,6 +38,7 @@ public struct EquipmentElementDTO: Codable {
 
 // MARK: - EnchantDTO
 public struct EnchantDTO: Codable {
+    let reinforceSkill: [ReinforceSkillDTO]?
     let status: [StatusElementDTO]
 }
 

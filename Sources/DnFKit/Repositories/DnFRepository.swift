@@ -59,7 +59,7 @@ public final class DnFRepository: DnFRepositoryProtocol {
     // 캐릭터 장비 검색
     public func fetchDnFCharacterEquipment(server: String, id: String) async throws -> [Equipment] {
         let response = try await apiService.getEquipment(server: server, id: id)
-        return response.equipment?.compactMap { .init(dto: $0) } ?? []
+        return response.equipment?.compactMap { .init(dto: $0, jobId: response.jobId) } ?? []
     }
     
     // 캐릭터 스킬 검색

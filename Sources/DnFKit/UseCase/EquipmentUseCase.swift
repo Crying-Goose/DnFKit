@@ -8,29 +8,55 @@
 import Foundation
 
 public protocol EquipmentUseCaseDelegate {
-    static func enchantToStirng(enchant: [StatusInfo], jobCode: String) -> String
+    func characterEquipInfo(server: String, id: String) async throws -> [Equipment]
 }
 
 public final class EquipmentUseCase: EquipmentUseCaseDelegate {
     
-    public static func enchantToStirng(enchant: [StatusInfo], jobCode: String) -> String {
-        var result: String = ""
-        guard let jobInfo = EquipmentUseCase.jobGrowTypeMap[jobCode] else { return "" }
-        let typeExceptionStats = jobInfo.attackType.exceptionStat
-        let damageExceptionStats = jobInfo.damageType.exceptionStat
-        let typeFilteredEnchant = enchant.filter { !typeExceptionStats.contains($0.name)}
-        let damageFilteredEnchant = typeFilteredEnchant.filter { !damageExceptionStats.contains($0.name)}
-        for (index, stat) in damageFilteredEnchant.enumerated() {
-            let abbreviatedName = abbreviated(from: stat.name)
-            result += "\(abbreviatedName):\(stat.value.formattedCleanString)"
-            if index < damageFilteredEnchant.count - 1 {
-                result += ", "
-            }
-        }
-        return result
+    private let repository: DnFRepository
+    
+    public init(repository: DnFRepository) {
+        self.repository = repository
     }
     
-    private static func abbreviated(from s: String) -> String {
+    func groupedEnchantString(from enchant: [StatusInfo]) -> String {
+        let groups: [(name: String, components: [String])] = [
+            ("스탯", ["힘", "지능", "정신력", "체력"]),
+            ("크리", ["물리 크리티컬 히트", "마법 크리티컬 히트"]),
+            ("공격력", ["물리 공격력", "마법 공격력", "독립 공격력"])
+        ]
+        
+        // ✅ 퍼센트 붙을 항목
+        let percentKeywords = ["크리", "최종뎀", "마크", "물크", "쿨감", "스증", "공속", "캐속"]
+        
+        var enchantDict = Dictionary(uniqueKeysWithValues: enchant.map { ($0.name, $0.value) })
+        var result: [(String, Double)] = []
+        
+        for group in groups {
+            if group.components.allSatisfy({ enchantDict.keys.contains($0) }) {
+                let average = group.components.compactMap { enchantDict[$0] }.reduce(0, +) / Double(group.components.count)
+                result.append((group.name, average))
+                group.components.forEach { enchantDict.removeValue(forKey: $0) }
+            }
+        }
+        
+        for (name, value) in enchantDict {
+            result.append((name, value))
+        }
+        
+        return result.map { name, value in
+            let abbreviatedName = abbreviated(from: name)
+            let formattedValue = value.formattedCleanString
+            if percentKeywords.contains(where: { abbreviatedName.contains($0) }) {
+                return "\(abbreviatedName):\(formattedValue)%"
+            } else {
+                return "\(abbreviatedName):\(formattedValue)"
+            }
+        }.joined(separator: ", ")
+    }
+
+    
+    private func abbreviated(from s: String) -> String {
         for (original, short) in abbreviationMap {
             if s.contains(original) {
                 return s.replacingOccurrences(of: original, with: short)
@@ -38,9 +64,28 @@ public final class EquipmentUseCase: EquipmentUseCaseDelegate {
         }
         return s
     }
-}
+    
+    public func characterEquipInfo(server: String, id: String) async throws -> [Equipment] {
+        
+        let equipments = try await repository.fetchDnFCharacterEquipment(server: server, id: id)
+        var makeEquipments: [Equipment] = []
+        equipments.forEach { equip in
+            let enchantString = groupedEnchantString(from: mergeEnchants(equip.enchant, equip.skillEnchant))
+            makeEquipments.append(equip.with(enchantString: enchantString))
+        }
+        return makeEquipments
+    }
+    
+    func mergeEnchants(_ e1: [StatusInfo], _ e2: [StatusInfo]) -> [StatusInfo] {
+        var mergedDict: [String: StatusInfo] = [:]
 
-extension EquipmentUseCase {
+        (e1 + e2).forEach { stat in
+            mergedDict[stat.name] = stat
+        }
+
+        return Array(mergedDict.values)
+    }
+    
     // TODO: 나중엔 Constants로 넣어야 됨
     enum AttackType {
         case physical
@@ -52,8 +97,8 @@ extension EquipmentUseCase {
         
         var exceptionStat: [String] {
             switch self {
-            case .physical: ["지능", "체력", "정신력", "마법 공격력", "마법 크리티컬"]
-            case .magical: ["힘", "체력", "정신력", "물리 공격력", "물리 크리티컬"]
+            case .physical: ["지능", "체력", "정신력", "마법 공격력", "마법 크리티컬 히트"]
+            case .magical: ["힘", "체력", "정신력", "물리 공격력", "물리 크리티컬 히트"]
             case .conversion: ["체력", "정신력"]
             case .bufferMental: ["힘", "지능", "체력", "물리 공격력", "마법 공격력"]
             case .bufferMentalOrStrength: ["힘", "지능", "물리 공격력", "마법 공격력"]
@@ -79,7 +124,7 @@ extension EquipmentUseCase {
         let damageType: DamageType
     }
     
-    private static let jobGrowTypeMap: [String: JobTypeInfo] = [
+    private let jobGrowTypeMap: [String: JobTypeInfo] = [
         // 귀검사(남)
         "41f1cdc2ff58bb5fdc287be0db2a8df3|眞 웨펀마스터":.init(attackType: .physical, damageType: .percent),
         "41f1cdc2ff58bb5fdc287be0db2a8df3|眞 소울브링어":.init(attackType: .magical, damageType: .percent),
@@ -168,7 +213,7 @@ extension EquipmentUseCase {
     ]
 
     
-    private static let abbreviationMap: [String: String] = [
+    private let abbreviationMap: [String: String] = [
         "화속성저항": "화속저",
         "수속성저항": "수속저",
         "명속성저항": "명속저",
@@ -186,8 +231,8 @@ extension EquipmentUseCase {
         "스킬 공격력 증가": "스증",
         "공격 속도": "공속",
         "캐스팅 속도": "캐속",
-        "물리 크리티컬": "물크",
-        "마법 크리티컬": "마크",
+        "물리 크리티컬 히트": "물크",
+        "마법 크리티컬 히트": "마크",
         "스킬 쿨타임 감소": "쿨감",
         "모험가 명성": "명성"
     ]

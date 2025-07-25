@@ -31,14 +31,14 @@ public struct StatusElementDTO: Codable {
     let value: Value
 }
 
-enum Value: Codable {
+public enum Value: Codable {
   case int(Int)
   case double(Double)
   case string(String)
   case bool(Bool)
   case none
 
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
 
         if container.decodeNil() {
@@ -62,7 +62,7 @@ enum Value: Codable {
         }
     }
 
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         switch self {
         case .int(let intVal):
