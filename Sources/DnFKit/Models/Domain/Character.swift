@@ -12,6 +12,7 @@ import Foundation
 public struct JustCharacter: Sendable {
     public let server: String
     public let characterId: String
+    public let jobId: String
     public let level: Int
     public let name: String
     public let jobGrowName: String
@@ -20,6 +21,7 @@ public struct JustCharacter: Sendable {
     init(dto: CharacterDTO) {
         self.server = dto.serverId
         self.characterId = dto.characterId
+        self.jobId = dto.jobId
         self.level = dto.level
         self.name = dto.characterName
         self.jobGrowName = dto.jobGrowName
