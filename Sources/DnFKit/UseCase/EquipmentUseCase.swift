@@ -18,10 +18,10 @@ public final class EquipmentUseCase: EquipmentUseCaseDelegate {
         guard let jobInfo = EquipmentUseCase.jobGrowTypeMap[jobCode] else { return "" }
         let typeExceptionStats = jobInfo.attackType.exceptionStat
         let damageExceptionStats = jobInfo.damageType.exceptionStat
-        let filteredEnchant = enchant.filter { !typeExceptionStats.contains($0.name) && !damageExceptionStats.contains($0.name) }
+        let filteredEnchant = enchant.filter { !typeExceptionStats.contains($0.name) || !damageExceptionStats.contains($0.name) }
         for (index, stat) in filteredEnchant.enumerated() {
             let abbreviatedName = abbreviated(from: stat.name)
-            result += "\(abbreviatedName):\(stat.value)"
+            result += "\(abbreviatedName):\(stat.value.formattedCleanString)"
             if index < enchant.count - 1 {
                 result += ", "
             }
@@ -51,8 +51,8 @@ extension EquipmentUseCase {
         
         var exceptionStat: [String] {
             switch self {
-            case .physical: ["지능", "체력", "정신력, 마법 공격력"]
-            case .magical: ["힘", "체력", "정신력, 물리 공격력"]
+            case .physical: ["지능", "체력", "정신력", "마법 공격력"]
+            case .magical: ["힘", "체력", "정신력", "물리 공격력"]
             case .conversion: ["체력", "정신력"]
             case .bufferMental: ["힘", "지능", "체력", "물리 공격력", "마법 공격력"]
             case .bufferMentalOrStrength: ["힘", "지능", "물리 공격력", "마법 공격력"]
