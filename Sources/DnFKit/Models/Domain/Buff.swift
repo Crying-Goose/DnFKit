@@ -13,6 +13,7 @@ public struct Buff: Sendable {
     public let type: String
     public let typeDetail: String
     public let rarity: String
+    public let optionAbility: String
     public let emblem: [Emblem]
     
     init(equipmentDto dto: BuffEquipmentDTO) {
@@ -21,6 +22,7 @@ public struct Buff: Sendable {
         self.type = dto.itemType
         self.typeDetail = dto.itemTypeDetail
         self.rarity = dto.itemRarity
+        self.optionAbility = ""
         self.emblem = []
     }
     
@@ -28,6 +30,7 @@ public struct Buff: Sendable {
         self.id = dto.itemId
         self.name = dto.itemName
         self.rarity = dto.itemRarity
+        self.optionAbility = dto.optionAbility
         self.type = ""
         self.typeDetail = ""
         self.emblem = dto.emblems?.compactMap { .init(dto: $0) } ?? []
@@ -39,6 +42,7 @@ public struct Buff: Sendable {
         self.rarity = dto.itemRarity
         self.type = ""
         self.typeDetail = ""
+        self.optionAbility = ""
         self.emblem = []
     }
 }

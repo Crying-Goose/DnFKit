@@ -1,5 +1,5 @@
 //
-//  BuffEquipments.swift
+//  BuffDTO.swift
 //  DnFKit
 //
 //  Created by 라주영 on 4/22/25.
