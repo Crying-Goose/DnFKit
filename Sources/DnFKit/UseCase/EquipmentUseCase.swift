@@ -26,8 +26,7 @@ public final class EquipmentUseCase: EquipmentUseCaseDelegate {
             ("공격력", ["물리 공격력", "마법 공격력", "독립 공격력"])
         ]
         
-        // ✅ 퍼센트 붙을 항목
-        let percentKeywords = ["크리", "최종뎀", "마크", "물크", "쿨감", "스증", "공속", "캐속"]
+        let percentKeywords = ["크리", "최종뎀", "마크", "물크", "쿨감", "스증", "공속", "캐속", "공증"]
         
         var enchantDict = Dictionary(uniqueKeysWithValues: enchant.map { ($0.name, $0.value) })
         var result: [(String, Double)] = []
