@@ -10,6 +10,7 @@ import Foundation
 public protocol DnFRepositoryProtocol {
     func fetchDnFCharacters(name: String) async throws -> [JustCharacter]
     func fetchDnFCharacter(server: String, name: String) async throws -> JustCharacter
+    func fetchDnFCharacterJobInfo(server: String, id: String) async throws -> (String, String)
     func fetchDnFCharacterInfo(server: String, id: String) async throws -> Character
     func fetchDnFCharacterStatus(server: String, id: String) async throws -> Status
     func fetchDnFCharacterEquipment(server: String, id: String) async throws -> [Equipment]
@@ -42,6 +43,12 @@ public final class DnFRepository: DnFRepositoryProtocol {
     public func fetchDnFCharacter(server: String, name: String) async throws -> JustCharacter {
         let response = try await apiService.getCharacter(server: server, name: name)
         return JustCharacter(dto: response.rows[0])
+    }
+    
+    // 캐릭터 jobId, jobGrowName
+    public func fetchDnFCharacterJobInfo(server: String, id: String) async throws -> (String, String) {
+        let response = try await apiService.getCharacterInfo(server: server, id: id)
+        return (response.jobId, response.jobGrowName)
     }
     
     // 캐릭터 정보 검색
