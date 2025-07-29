@@ -40,6 +40,7 @@ public struct BuffEquipmentDTO: Codable {
     public let reinforce: Int
     public let amplificationName: String?
     public let refine: Int
+    public let enchant: BuffEnchantDTO?
 }
 
 // MARK: - BuffAvatar
