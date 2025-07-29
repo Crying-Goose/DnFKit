@@ -89,6 +89,8 @@ public final class EquipmentUseCase: EquipmentUseCaseDelegate {
                 if let skill = buff.buffSkill.first(where: { $0.jobId == jobId })?.skills.first(where: { $0.skillId == findJobGrowName(jobId: jobId, jobGrowName: jobGrowName) }) {
                     makeBuffs.append(buff.with(optionString: "\(skill.name) 스킬Lv +\(skill.value.formattedCleanString)"))
                 }
+            } else {
+                makeBuffs.append(buff)
             }
         }
         
