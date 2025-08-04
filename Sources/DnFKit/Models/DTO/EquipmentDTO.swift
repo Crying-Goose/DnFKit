@@ -81,7 +81,7 @@ public struct UpgradeInfoDTO: Codable {
 // MARK: - SetItemInfoDTO
 public struct SetItemInfoDTO: Codable {
     let setItemId: String
-    let setItemName, setItemRarityName: String
+    let setItemName, setItemRarityName: String?
     let active: ActiveDTO
     let slotInfo: [SlotInfoDTO]
 }

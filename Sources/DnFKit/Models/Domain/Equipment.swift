@@ -101,8 +101,8 @@ public struct SetItemInfo: Sendable {
     
     init(dto: SetItemInfoDTO) {
         self.id = dto.setItemId
-        self.name = dto.setItemName
-        self.rarity = dto.setItemRarityName
+        self.name = dto.setItemName ?? ""
+        self.rarity = dto.setItemRarityName ?? ""
         self.setPoint = dto.active.setPoint.current
     }
     
