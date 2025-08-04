@@ -21,6 +21,7 @@ public struct AuctionDTO: Codable {
     let itemAvailableLevel: Int
     let refine, reinforce: Int
     let amplificationName: String?
-    let fame, count, regCount: Int
+    let count, regCount: Int
+    let fame: Int?
     let price, currentPrice, unitPrice, averagePrice: Int
 }

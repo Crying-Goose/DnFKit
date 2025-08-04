@@ -12,7 +12,7 @@ public struct BuffEquipmentResponseDTO: Codable {
     public let serverId, characterId, characterName: String
     public let level: Int
     public let jobId, jobGrowId, jobName, jobGrowName: String
-    public let fame: Int
+    public let fame: Int?
     public let adventureName, guildId, guildName: String?
     public let skill: BuffSkillDTO
 }
@@ -48,7 +48,7 @@ public struct BuffAvatarDTO: Codable {
     public let slotId, slotName, itemId, itemName: String
     public let itemRarity: String
     public let clone: CloneDTO
-    public let optionAbility: String
+    public let optionAbility: String?
     public let emblems: [EmblemDTO]?
 }
 

@@ -34,7 +34,7 @@ public struct Buff: Sendable {
         self.id = dto.itemId
         self.name = dto.itemName
         self.rarity = dto.itemRarity
-        self.optionAbility = dto.optionAbility
+        self.optionAbility = dto.optionAbility ?? ""
         self.emblem = dto.emblems?.compactMap { .init(dto: $0) } ?? []
         self.type = ""
         self.typeDetail = ""

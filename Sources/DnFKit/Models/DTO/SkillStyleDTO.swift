@@ -12,7 +12,7 @@ public struct SkillStyleResponseDTO: Codable {
     let serverId, characterId, characterName: String
     let level: Int
     let jobId, jobGrowId, jobName, jobGrowName: String
-    let fame: Int
+    let fame: Int?
     let adventureName, guildId, guildName: String?
     let skill: SkillDTO
 }
