@@ -181,7 +181,7 @@ final class DnFKitTests: XCTestCase {
     func testFetchTimeline() async throws {
         // ✅ 준비
         let repository = DnFRepository()
-        let id = "96b4b30b29b96bdaa835ba3def65efc2"
+        let id = "715119fb55abb595ef7889739782227b"
         let server = "cain"
         
         // ✅ 실행
@@ -214,7 +214,7 @@ final class DnFKitTests: XCTestCase {
     func testEquipmentInfo() async throws {
         // ✅ 준비
         let useCase = EquipmentUseCase(repository: DnFRepository())
-        let id = "96b4b30b29b96bdaa835ba3def65efc2"
+        let id = "715119fb55abb595ef7889739782227b"
         let server = "cain"
         
         // ✅ 실행
@@ -231,7 +231,7 @@ final class DnFKitTests: XCTestCase {
     func testFetchEditBuffs() async throws {
         // ✅ 준비
         let useCase = EquipmentUseCase(repository: DnFRepository())
-        let id = "96b4b30b29b96bdaa835ba3def65efc2"
+        let id = "715119fb55abb595ef7889739782227b"
         let server = "cain"
         
         // ✅ 실행

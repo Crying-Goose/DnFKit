@@ -60,7 +60,7 @@ public struct BuffCreatureDTO: Codable {
 
 // MARK: - Enchant
 public struct BuffEnchantDTO: Codable {
-    public let reinforceSkill: [ReinforceSkillDTO]
+    public let reinforceSkill: [ReinforceSkillDTO]?
 }
 
 // MARK: - ReinforceSkill
@@ -78,7 +78,7 @@ public struct SkillElementDTO: Codable {
 // MARK: - SkillInfo
 public struct SkillInfoDTO: Codable {
     public let skillId, name: String
-    public let option: BuffOptionDTO
+    public let option: BuffOptionDTO?
 }
 
 // MARK: - BuffOption

@@ -25,7 +25,7 @@ public struct Buff: Sendable {
         self.typeDetail = dto.itemTypeDetail
         self.rarity = dto.itemRarity
         self.optionAbility = ""
-        self.buffSkill = dto.enchant?.reinforceSkill.compactMap { .init(dto: $0) } ?? []
+        self.buffSkill = dto.enchant?.reinforceSkill?.compactMap { .init(dto: $0) } ?? []
         self.emblem = []
         self.optionString = ""
     }
@@ -46,7 +46,7 @@ public struct Buff: Sendable {
         self.id = dto.itemId
         self.name = dto.itemName
         self.rarity = dto.itemRarity
-        self.buffSkill = dto.enchant?.reinforceSkill.compactMap { .init(dto: $0) } ?? []
+        self.buffSkill = dto.enchant?.reinforceSkill?.compactMap { .init(dto: $0) } ?? []
         self.type = ""
         self.typeDetail = ""
         self.optionAbility = ""
