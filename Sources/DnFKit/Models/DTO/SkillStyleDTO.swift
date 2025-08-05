@@ -19,7 +19,7 @@ public struct SkillStyleResponseDTO: Codable {
 
 // MARK: - SkillDTO
 struct SkillDTO: Codable {
-    let hash: String
+    let hash: String?
     let style: StyleDTO
 }
 

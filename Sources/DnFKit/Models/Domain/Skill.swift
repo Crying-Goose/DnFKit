@@ -8,7 +8,7 @@
 import Foundation
 
 public struct SkillStyle: Sendable {
-    public let hash: String
+    public let hash: String?
     public let active: [Skill]
     public let passive: [Skill]
     public let evolution: [SkillStage]
