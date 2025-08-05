@@ -50,7 +50,7 @@ public struct FusionOptionDTO: Codable {
 // MARK: - OptionDTO
 public struct OptionDTO: Codable {
     let buff: Int?
-    let explain, explainDetail: String
+    let explain, explainDetail: String?
     let buffExplain, buffExplainDetail: String?
     let engrave: EngraveDTO?
 }
@@ -88,7 +88,7 @@ public struct SetItemInfoDTO: Codable {
 
 // MARK: - ActiveDTO
 public struct ActiveDTO: Codable {
-    let explain, explainDetail: String
+    let explain, explainDetail: String?
     let status: [StatusElementDTO]
     let setPoint: SetPointDTO
 }

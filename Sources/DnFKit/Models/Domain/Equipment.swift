@@ -77,7 +77,7 @@ public struct FusionOption: Sendable {
     
     init(dto: OptionDTO) {
         self.buffStat = dto.buff ?? 0
-        self.explain = dto.explain
+        self.explain = dto.explain ?? ""
     }
 }
 
