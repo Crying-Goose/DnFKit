@@ -43,6 +43,7 @@ public struct ItemDrop: Sendable {
     public let rarity: String
     public let channelName: String
     public let cnannelNo: Int
+    public let transcend: String?
     public let inTheAbyss: Bool
     
     init(dto: TimelineRowDTO) {
@@ -53,6 +54,7 @@ public struct ItemDrop: Sendable {
         self.rarity = dto.data.itemRarity ?? ""
         self.channelName = dto.data.channelName ?? ""
         self.cnannelNo = dto.data.channelNo ?? 0
+        self.transcend = dto.data.adventureSafeMoveType
         self.inTheAbyss = dto.data.dungeonName == "심연 : 종말의 숭배자"
     }
 }

@@ -19,7 +19,7 @@ public protocol DnFRepositoryProtocol {
     func fetchDnFCharacterFlag(server: String, id: String) async throws -> Flag?
     func fetchDnFCharacterBuffs(server: String, id: String) async throws -> [Buff]
     func fetchDnFChracterCreature(server: String, id: String) async throws -> Creature?
-    func fetchDnFTimeline(server: String, id: String) async throws -> Timeline
+    func fetchDnFTimeline(server: String, id: String, date: Date) async throws -> Timeline
     func fetchDnFItems(name: String) async throws -> [Item]
     func fetchDnFItem(name: String) async throws -> Item?
     func fetchDnFAuction(id: String) async throws -> [Auction]
@@ -114,12 +114,9 @@ public final class DnFRepository: DnFRepositoryProtocol {
     }
     
     // 캐릭터 타임라인 검색
-    public func fetchDnFTimeline(server: String, id: String) async throws -> Timeline {
-        let date = Date()
-        // 날짜 계산해서 캐릭터 생성일 전까지 계속 루프
+    public func fetchDnFTimeline(server: String, id: String, date: Date) async throws -> Timeline {
         let raidsDTO = try await apiService.getTimeline(server: server, id: id, code: [201,210], date: date, next: nil)
-        let itemDropsDTO = try await apiService.getTimeline(server: server, id: id, code: [504,505,507], date: date, next: nil)
-        // TODO: 초월 (516) 데이터도 필요 (adventureSafeMoveType)
+        let itemDropsDTO = try await apiService.getTimeline(server: server, id: id, code: [504,505,507,516], date: date, next: nil)
         return .init(
             raids: raidsDTO.timeline.rows.compactMap { .init(dto: $0) },
             itemDrops: itemDropsDTO.timeline.rows.compactMap { .init(dto: $0) }

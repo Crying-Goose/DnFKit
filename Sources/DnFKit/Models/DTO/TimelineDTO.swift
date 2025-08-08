@@ -37,6 +37,7 @@ struct DataClassDTO: Codable {
     let regionName, itemId, itemName, itemRarity: String?
     let channelName: String?
     let channelNo: Int?
+    let adventureSafeMoveType: String?
     let dungeonName: String?
     let mistGear: Bool?
     let raidName, raidPartyName, modeName: String?
