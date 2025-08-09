@@ -34,7 +34,7 @@ public struct Raid: Sendable {
     }
 }
 
-// 아이템 획득 : 504, 505
+// 아이템 획득 : 504, 505, 516
 public struct ItemDrop: Sendable {
     public let code: Int
     public let date: String
