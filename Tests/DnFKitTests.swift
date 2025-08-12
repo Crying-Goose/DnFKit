@@ -180,12 +180,15 @@ final class DnFKitTests: XCTestCase {
     
     func testFetchTimeline() async throws {
         // ✅ 준비
-        let repository = DnFRepository()
+        let useCase = TimelineUseCase(repository: DnFRepository())
         let id = "96b4b30b29b96bdaa835ba3def65efc2"
         let server = "cain"
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let date = formatter.date(from: "2025-02-01")!
         
         // ✅ 실행
-        let result = try await repository.fetchDnFTimeline(server: server, id: id)
+        let result = try await useCase.timelines(server: server, id: id, date: date)
         
         // ✅ 출력
         print(result)

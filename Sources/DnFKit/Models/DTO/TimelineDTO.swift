@@ -7,10 +7,10 @@
 
 // MARK: - TimelineResponseDTO
 public struct TimelineResponseDTO: Codable {
-    let serverId: String        // 서버명 ex) cain
-    let characterId: String     // 캐릭터 고유 코드
-    let characterName: String   // 캐릭터 이름
-    let timeline: TimelineDTO    // 캐릭터 타임라인
+    let serverId: String
+    let characterId: String
+    let characterName: String
+    let timeline: TimelineDTO
 }
 
 // MARK: - TimelineDTO

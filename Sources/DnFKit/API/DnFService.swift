@@ -21,7 +21,7 @@ public protocol DnFAPIServiceProtocol {
     func getBuffCreature(server: String, id: String) async throws -> BuffEquipmentResponseDTO
     func getFlag(server: String, id: String) async throws -> FlagResponseDTO
     func getSkills(server: String, id: String) async throws -> SkillStyleResponseDTO
-    func getTimeline(server: String, id: String, code: [Int], date: Date, next: String?) async throws -> TimelineResponseDTO
+    func getTimeline(server: String, id: String, code: [Int], startDate: Date, endDate: Date, next: String?) async throws -> TimelineResponseDTO
     func getItems(name: String) async throws -> ItemResponseDTO
     func getItem(name: String, workType: String) async throws -> ItemResponseDTO
     func getAuction(id: String) async throws -> AuctionResponseDTO
@@ -274,12 +274,10 @@ public final class DnFService: DnFAPIServiceProtocol {
     }
     
     // 캐릭터 타임라인 조회
-    public func getTimeline(server: String, id: String, code: [Int], date: Date, next: String?) async throws -> TimelineResponseDTO {
+    public func getTimeline(server: String, id: String, code: [Int], startDate: Date, endDate: Date, next: String?) async throws -> TimelineResponseDTO {
         return try await withCheckedThrowingContinuation { continuation in
-            let calendar = Calendar.current
-            let startDate = calendar.date(byAdding: .month, value: -1, to: date)
             let codeString = code.map { String($0) }.joined(separator: ",")
-            provider.request(.timeline(server: server, characterId: id, startDate: startDate ?? date, endDate: date, code: codeString, next: next)) { result in
+            provider.request(.timeline(server: server, characterId: id, startDate: startDate, endDate: endDate, code: codeString, next: next)) { result in
                 switch result {
                 case .success(let response):
                     do {

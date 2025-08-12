@@ -66,10 +66,18 @@ public final class EquipmentUseCase: EquipmentUseCaseDelegate {
     
     public func characterEquipInfo(server: String, id: String) async throws -> [Equipment] {
         
-        let equipments = try await repository.fetchDnFCharacterEquipment(server: server, id: id)
+        let equipments = try await repository.fetchDnFCharacterEquipment(
+            server: server,
+            id: id
+        )
         var makeEquipments: [Equipment] = []
         equipments.forEach { equip in
-            let enchantString = groupedEnchantString(from: mergeEnchants(equip.enchant, equip.skillEnchant))
+            let enchantString = groupedEnchantString(
+                from: mergeEnchants(
+                    equip.enchant,
+                    equip.skillEnchant
+                )
+            )
             makeEquipments.append(equip.with(enchantString: enchantString))
         }
         return makeEquipments
