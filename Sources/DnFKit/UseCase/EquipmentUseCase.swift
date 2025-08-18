@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol EquipmentUseCaseDelegate {
-    func characterEquipInfo(server: String, id: String) async throws -> [Equipment]
+    func characterEquipInfo(server: String, id: String) async throws -> Equipments
     func characterBuffs(server: String, id: String) async throws -> [Buff]
 }
 
@@ -64,14 +64,14 @@ public final class EquipmentUseCase: EquipmentUseCaseDelegate {
         return s
     }
     
-    public func characterEquipInfo(server: String, id: String) async throws -> [Equipment] {
+    public func characterEquipInfo(server: String, id: String) async throws -> Equipments {
         
         let equipments = try await repository.fetchDnFCharacterEquipment(
             server: server,
             id: id
         )
         var makeEquipments: [Equipment] = []
-        equipments.forEach { equip in
+        equipments.equipments.forEach { equip in
             let enchantString = groupedEnchantString(
                 from: mergeEnchants(
                     equip.enchant,
@@ -80,7 +80,7 @@ public final class EquipmentUseCase: EquipmentUseCaseDelegate {
             )
             makeEquipments.append(equip.with(enchantString: enchantString))
         }
-        return makeEquipments
+        return equipments.with(equipments: makeEquipments)
     }
     
     public func characterBuffs(server: String, id: String) async throws -> [Buff] {

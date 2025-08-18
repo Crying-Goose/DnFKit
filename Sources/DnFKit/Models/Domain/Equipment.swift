@@ -7,6 +7,17 @@
 
 import Foundation
 
+public struct Equipments: Sendable {
+    public var equipments: [Equipment]
+    public let setItemInfo: SetItemInfo?
+    
+    func with(equipments: [Equipment]) -> Equipments {
+        var copy = self
+        copy.equipments = equipments
+        return copy
+    }
+}
+
 public struct Equipment: Sendable {
     public let id: String
     public let name: String
@@ -105,5 +116,4 @@ public struct SetItemInfo: Sendable {
         self.rarity = dto.setItemRarityName ?? ""
         self.setPoint = dto.active.setPoint.current
     }
-    
 }

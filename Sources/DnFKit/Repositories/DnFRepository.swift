@@ -13,7 +13,7 @@ public protocol DnFRepositoryProtocol {
     func fetchDnFCharacterJobInfo(server: String, id: String) async throws -> (String, String)
     func fetchDnFCharacterInfo(server: String, id: String) async throws -> Character
     func fetchDnFCharacterStatus(server: String, id: String) async throws -> Status
-    func fetchDnFCharacterEquipment(server: String, id: String) async throws -> [Equipment]
+    func fetchDnFCharacterEquipment(server: String, id: String) async throws -> Equipments
     func fetchDnFCharacterSkillStyle(server: String, id: String) async throws -> SkillStyle
     func fetchDnFCharacterAvatar(server: String, id: String) async throws -> [Avatar]
     func fetchDnFCharacterFlag(server: String, id: String) async throws -> Flag?
@@ -64,9 +64,15 @@ public final class DnFRepository: DnFRepositoryProtocol {
     }
     
     // 캐릭터 장비 검색
-    public func fetchDnFCharacterEquipment(server: String, id: String) async throws -> [Equipment] {
+    public func fetchDnFCharacterEquipment(server: String, id: String) async throws -> Equipments {
         let response = try await apiService.getEquipment(server: server, id: id)
-        return response.equipment?.compactMap { .init(dto: $0, jobId: response.jobId) } ?? []
+        let equipments = response.equipment?.compactMap { Equipment.init(dto: $0, jobId: response.jobId) } ?? []
+        var setItemInfo: SetItemInfo? = nil
+        if let info = response.setItemInfo?.first {
+            setItemInfo = SetItemInfo.init(dto: info)
+        }
+        
+        return .init(equipments: equipments, setItemInfo: setItemInfo)
     }
     
     // 캐릭터 스킬 검색
