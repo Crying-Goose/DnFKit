@@ -128,8 +128,4 @@ extension DnFTarget: TargetType {
             ], encoding: URLEncoding.default)
         }
     }
-
-    public var sampleData: Data {
-        return Data()
-    }
 }
