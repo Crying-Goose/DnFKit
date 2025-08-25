@@ -15,4 +15,9 @@ public struct DnFKit {
     public static func checkAPI() {
         
     }
+    
+    // 중천 시즌 아이템 ID 목록
+    public static func getMidSkyItems() -> [String] {
+        return midSkyItem
+    }
 }
