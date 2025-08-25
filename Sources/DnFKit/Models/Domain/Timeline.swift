@@ -8,12 +8,19 @@
 import Foundation
 
 public struct Timeline: Sendable {
-    public let raids: [Raid]
-    public let itemDrops: [ItemDrop]
+    public var raids: [Raid]
+    public var itemDrops: [ItemDrop]
     
     init(raids: [Raid], itemDrops: [ItemDrop]) {
         self.raids = raids
         self.itemDrops = itemDrops
+    }
+    
+    func with(raids:[Raid], itemDrops: [ItemDrop]) -> Timeline {
+        var copy = self
+        copy.raids = raids
+        copy.itemDrops = itemDrops
+        return copy
     }
 }
 

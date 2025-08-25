@@ -55,12 +55,20 @@ public final class TimelineUseCase: TimelineUseCaseDelegate {
         if results.isEmpty {
             throw NSError(domain: "타임라인 정보 없음", code: 0, userInfo: nil)
         }
+        
+        let filteredResults = results.map { timeline -> Timeline in
+            let filterItemDrop = filterExcludedItems(itemDrop: timeline.itemDrops)
+            return timeline.with(
+                raids: timeline.raids,
+                itemDrops: filterItemDrop
+            )
+        }
 
-        return results
+        return filteredResults
     }
     
     // 주간 단위 조회
-    func dateRange(from date: Date) -> (start: Date, end: Date) {
+    private func dateRange(from date: Date) -> (start: Date, end: Date) {
         
         let today = Date()
         let reference = date
@@ -75,5 +83,11 @@ public final class TimelineUseCase: TimelineUseCaseDelegate {
         }
         
         return (start, end)
+    }
+    
+    // 중천 시즌 아이템만 포함
+    func filterExcludedItems(itemDrop: [ItemDrop]) -> [ItemDrop] {
+        let includedIds = DnFKit.getMidSkyItems()
+        return itemDrop.filter { includedIds.contains($0.itemId) }
     }
 }
