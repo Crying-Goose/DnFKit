@@ -42,4 +42,6 @@ struct DataClassDTO: Codable {
     let mistGear: Bool?
     let raidName, raidPartyName, modeName: String?
     let hard: Bool?
+    let single: Bool?
+    let matching: Bool?
 }

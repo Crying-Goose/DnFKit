@@ -31,6 +31,7 @@ public struct Raid: Sendable {
     public let name: String
     public let mode: String
     public let isHard: Bool
+    public let isUnofficial: Bool
     
     init(dto: TimelineRowDTO) {
         self.code = dto.code
@@ -38,6 +39,7 @@ public struct Raid: Sendable {
         self.name = dto.data.raidName ?? ""
         self.mode = dto.data.modeName ?? ""
         self.isHard = dto.data.hard ?? false
+        self.isUnofficial = dto.data.single == true || dto.data.matching == true
     }
 }
 

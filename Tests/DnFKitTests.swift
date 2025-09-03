@@ -247,4 +247,25 @@ final class DnFKitTests: XCTestCase {
         XCTAssertNoThrow(result)
         XCTAssertNotNil(result, "검색 결과가 없음")
     }
+    
+    func testRaidTimeline() async throws {
+        // ✅ 준비
+        let apiService = DnFService()
+        let id = "4c3e0467fcf5e566d86fcb80c9b37337"
+        let server = "cain"
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let sDate = formatter.date(from: "2025-04-01")!
+        let eDate = formatter.date(from: "2025-04-30")!
+        
+        // ✅ 실행
+        let result = try await apiService.getTimeline(server: server, id: id, code: [201,210], startDate: sDate, endDate: eDate, next: nil)
+        
+        // ✅ 출력
+        print(result)
+        
+        // ✅ 검증
+        XCTAssertNoThrow(result)
+        XCTAssertNotNil(result, "검색 결과가 없음")
+    }
 }
