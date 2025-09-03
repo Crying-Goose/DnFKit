@@ -8,6 +8,7 @@
 import Foundation
 
 public struct Auction: Sendable {
+    public let itemId: String
     public let itemName: String
     public let auctionNo: Int
     public let regDate: String
@@ -17,6 +18,7 @@ public struct Auction: Sendable {
     public let averagePrice: Int
     
     init(dto: AuctionDTO) {
+        self.itemId = dto.itemId
         self.itemName = dto.itemName
         self.auctionNo = dto.auctionNo
         self.regDate = dto.regDate
