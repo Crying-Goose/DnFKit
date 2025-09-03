@@ -60,7 +60,7 @@ public final class TimelineUseCase: TimelineUseCaseDelegate {
             let filterRaid = timeline.raids.filter { !$0.isUnofficial }
             let filterItemDrop = filterExcludedItems(itemDrop: timeline.itemDrops)
             return timeline.with(
-                raids: timeline.raids,
+                raids: filterRaid,
                 itemDrops: filterItemDrop
             )
         }
