@@ -201,7 +201,7 @@ final class DnFKitTests: XCTestCase {
     func testItemSearch() async throws {
         // ✅ 준비
         let repository = DnFRepository()
-        let name = "요기"
+        let name = "요기의 단서"
         
         // ✅ 실행
         let result = try await repository.fetchDnFItems(name: name)
@@ -260,6 +260,22 @@ final class DnFKitTests: XCTestCase {
         
         // ✅ 실행
         let result = try await apiService.getTimeline(server: server, id: id, code: [201,210], startDate: sDate, endDate: eDate, next: nil)
+        
+        // ✅ 출력
+        print(result)
+        
+        // ✅ 검증
+        XCTAssertNoThrow(result)
+        XCTAssertNotNil(result, "검색 결과가 없음")
+    }
+    
+    func testAuction() async throws {
+        // ✅ 준비
+        let apiService = DnFService()
+        let id = "d7e9443a19fe81a9cc8364c201f6ab55"
+        
+        // ✅ 실행
+        let result = try await apiService.getAuction(id: id)
         
         // ✅ 출력
         print(result)
