@@ -122,7 +122,7 @@ public final class DnFRepository: DnFRepositoryProtocol {
     // 캐릭터 타임라인 검색
     public func fetchDnFTimeline(server: String, id: String, startDate: Date, endDate: Date) async throws -> Timeline {
         let raidsDTO = try await apiService.getTimeline(server: server, id: id, code: [201,210], startDate: startDate, endDate: endDate, next: nil)
-        let itemDropsDTO = try await apiService.getTimeline(server: server, id: id, code: [505,507,516], startDate: startDate, endDate: endDate, next: nil)
+        let itemDropsDTO = try await apiService.getTimeline(server: server, id: id, code: [505,507,513,516], startDate: startDate, endDate: endDate, next: nil)
         let jaritemDropsDTO = try await apiService.getTimeline(server: server, id: id, code: [504], startDate: startDate, endDate: endDate, next: nil)
         let mergedItems = [itemDropsDTO.timeline.rows, jaritemDropsDTO.timeline.rows]
             .flatMap { $0 }
